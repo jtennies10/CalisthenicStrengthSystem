@@ -15,29 +15,177 @@
         android:background="@color/colorAccent"
         android:layout_marginBottom="20dp"/>
 
-    <EditText
-        android:id="@+id/register_email"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/register_email"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/register_email"
+            android:text="*"
+            android:textColor="@color/colorAccent"/>
+
+        <EditText
+            android:id="@+id/register_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/register_email"
+            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorAccent"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/register_email"
+            android:text="*"
+            android:textColor="@color/colorAccent"/>
+
+        <EditText
+            android:id="@+id/register_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/register_username"
+            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorAccent"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/register_email"
+            android:text="*"
+            android:textColor="@color/colorAccent"/>
+
+        <EditText
+            android:id="@+id/register_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/register_password"
+            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorAccent"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/register_email"
+            android:text="*"
+            android:textColor="@color/colorAccent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date of Birth"
+            android:textColor="@color/colorAccent"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D:"
+            android:labelFor="@+id/register_birth_day"
+            android:textColor="@color/colorAccent"/>
+
+        <Spinner
+            android:id="@+id/register_birth_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="M:"
+            android:labelFor="@+id/register_birth_month"
+            android:textColor="@color/colorAccent"/>
+
+        <Spinner
+            android:id="@+id/register_birth_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Y"
+            android:labelFor="@+id/register_birth_year"
+            android:textColor="@color/colorAccent"/>
+
+        <Spinner
+            android:id="@+id/register_birth_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/register_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/register_height"
         android:textColorHint="@color/colorAccent"
         android:textColor="@color/colorAccent"/>
 
     <EditText
-        android:id="@+id/register_username"
+        android:id="@+id/register_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/register_username"
+        android:hint="@string/register_weight"
         android:textColorHint="@color/colorAccent"
         android:textColor="@color/colorAccent"/>
 
-    <EditText
-        android:id="@+id/register_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/register_password"
-        android:textColorHint="@color/colorAccent"
-        android:textColor="@color/colorAccent"/>
+
+
+
 
 
 

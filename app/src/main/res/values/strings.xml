@@ -6,8 +6,24 @@
     <string name="sign_in">Sign In</string>
     <string name="register_here"><u>New? Register here</u></string>
     <string name="register_email">Email</string>
-    <string name="register_sign_in">Already have an account?<br/>  Sign in Here</string>
+    <string name="register_sign_in"><u>Already have an account?<br/>  Sign in Here</u></string>
     <string name="register_register">Register</string>
     <string name="register_password">Password</string>
     <string name="register_username">Username</string>
+    <string name="register_height">Height(in)</string>
+    <string name="register_weight">Weight(lbs)</string>
+    <string-array name="months_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 </resources>
