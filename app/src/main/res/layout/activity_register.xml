@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:background="@color/colorAccent"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/register_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/register_email"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorAccent"/>
+
+    <EditText
+        android:id="@+id/register_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/register_username"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorAccent"/>
+
+    <EditText
+        android:id="@+id/register_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/register_password"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorAccent"/>
+
+
+
+    <Button
+        android:id="@+id/register_register_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_register"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@color/colorAccent" />
+
+    <Button
+        android:id="@+id/register_sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_sign_in"
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimary"
+        android:stateListAnimator="@null"
+        android:layout_marginTop="100dp" />
+
+
+</LinearLayout>
