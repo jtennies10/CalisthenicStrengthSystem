@@ -13,7 +13,7 @@ public class User {
     private int userId;
 
     @NonNull
-    private String username;
+    private String userName;
 
     @NonNull
     private String email;
@@ -28,17 +28,17 @@ public class User {
     private int heightInInches;
 
 
-    public User(int userId, String username, String email, String password, Date dateOfBirth) {
+    public User(int userId, @NonNull String userName,@NonNull String email,@NonNull String password,@NonNull Date dateOfBirth) {
         this.userId = userId;
-        this.username = username;
+        this.userName = userName;
         this.email = email;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
     }
 
-    public User(int userId, String username, String email, String password, Date dateOfBirth, int heightInInches) {
+    public User(int userId, String userName,@NonNull String email, @NonNull String password,@NonNull Date dateOfBirth, int heightInInches) {
         this.userId = userId;
-        this.username = username;
+        this.userName = userName;
         this.email = email;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
@@ -49,18 +49,22 @@ public class User {
         return userId;
     }
 
-    public String getUsername() {
-        return username;
+    @NonNull
+    public String getUserName() {
+        return userName;
     }
 
+    @NonNull
     public String getEmail() {
         return email;
     }
 
+    @NonNull
     public String getPassword() {
         return password;
     }
 
+    @NonNull
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
