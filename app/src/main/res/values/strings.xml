@@ -12,6 +12,8 @@
     <string name="register_username">Username</string>
     <string name="register_height">Height(in)</string>
     <string name="register_weight">Weight(lbs)</string>
+    <string name="asterick">*</string>
+    <string name="register_date_of_birth">Date of Birth</string>
     <string-array name="months_array">
         <item>January</item>
         <item>February</item>
