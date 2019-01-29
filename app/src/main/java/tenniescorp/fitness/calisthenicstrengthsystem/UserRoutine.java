@@ -4,7 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName="user_routine_table", primaryKeys = "userId routineId")
+@Entity(tableName="user_routine_table", primaryKeys = {"userId", "routineId"})
 public class UserRoutine {
 
     @ForeignKey(entity = User.class, parentColumns = "userId", childColumns = "userId")
@@ -25,4 +25,6 @@ public class UserRoutine {
     public int getRoutineId() {
         return routineId;
     }
+
+
 }

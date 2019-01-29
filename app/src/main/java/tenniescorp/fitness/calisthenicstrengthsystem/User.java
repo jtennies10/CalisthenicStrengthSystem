@@ -22,27 +22,20 @@ public class User {
     private String password;
 
     @NonNull
-    private Date dateOfBirth;
+    private String dateOfBirthAsString;
 
 
     private int heightInInches;
 
 
-    public User(int userId, @NonNull String userName,@NonNull String email,@NonNull String password,@NonNull Date dateOfBirth) {
+    public User(int userId, String userName,@NonNull String email, @NonNull String password,@NonNull String dateOfBirthAsString, int heightInInches) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public User(int userId, String userName,@NonNull String email, @NonNull String password,@NonNull Date dateOfBirth, int heightInInches) {
-        this.userId = userId;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirthAsString = dateOfBirthAsString;
         this.heightInInches = heightInInches;
+
     }
 
     public int getUserId() {
@@ -65,11 +58,35 @@ public class User {
     }
 
     @NonNull
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public String getDateOfBirthAsString() {
+        return dateOfBirthAsString;
     }
 
     public int getHeightInInches() {
         return heightInInches;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setUserName(@NonNull String userName) {
+        this.userName = userName;
+    }
+
+    public void setEmail(@NonNull String email) {
+        this.email = email;
+    }
+
+    public void setPassword(@NonNull String password) {
+        this.password = password;
+    }
+
+    public void setDateOfBirthAsString(@NonNull String dateOfBirthAsString) {
+        this.dateOfBirthAsString = dateOfBirthAsString;
+    }
+
+    public void setHeightInInches(int heightInInches) {
+        this.heightInInches = heightInInches;
     }
 }

@@ -20,13 +20,13 @@ public class UserWeight {
     private int weightInPounds;
 
     @NonNull
-    private Date weightDate;
+    private String weightDateAsString;
 
-    public UserWeight(int weightId, int userId, int weightInPounds, @NonNull Date weightDate) {
+    public UserWeight(int weightId, int userId, int weightInPounds, @NonNull String weightDateAsString) {
         this.weightId = weightId;
         this.userId = userId;
         this.weightInPounds = weightInPounds;
-        this.weightDate = weightDate;
+        this.weightDateAsString = weightDateAsString;
     }
 
     public int getWeightId() {
@@ -42,7 +42,15 @@ public class UserWeight {
     }
 
     @NonNull
-    public Date getWeightDate() {
-        return weightDate;
+    public String getWeightDateAsString() {
+        return weightDateAsString;
+    }
+
+    public void setWeightInPounds(int weightInPounds) {
+        this.weightInPounds = weightInPounds;
+    }
+
+    public void setWeightDateAsString(@NonNull String weightDateAsString) {
+        this.weightDateAsString = weightDateAsString;
     }
 }

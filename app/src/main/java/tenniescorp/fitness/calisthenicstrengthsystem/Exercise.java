@@ -15,11 +15,6 @@ public class Exercise {
 
     private String exerciseDescription;
 
-    public Exercise(int exerciseId, @NonNull String exerciseName) {
-        this.exerciseId = exerciseId;
-        this.exerciseName = exerciseName;
-    }
-
     public Exercise(int exerciseId, @NonNull String exerciseName, String exerciseDescription) {
         this.exerciseId = exerciseId;
         this.exerciseName = exerciseName;
@@ -37,5 +32,13 @@ public class Exercise {
 
     public String getExerciseDescription() {
         return exerciseDescription;
+    }
+
+    public void setExerciseName(@NonNull String exerciseName) {
+        this.exerciseName = exerciseName;
+    }
+
+    public void setExerciseDescription(String exerciseDescription) {
+        this.exerciseDescription = exerciseDescription;
     }
 }

@@ -3,7 +3,7 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 
-@Entity(tableName="routine_exercise_table", primaryKeys = "routineId exerciseId")
+@Entity(tableName="routine_exercise_table", primaryKeys = {"routineId", "exerciseId"})
 public class RoutineExercise {
 
     @ForeignKey(entity = Routine.class, parentColumns = "routineId", childColumns = "routineId")

@@ -15,10 +15,6 @@ public class Routine {
 
     private String routineDescription;
 
-    public Routine(int routineId, @NonNull String routineName) {
-        this.routineId = routineId;
-        this.routineName = routineName;
-    }
 
     public Routine(int routineId, @NonNull String routineName, String routineDescription) {
         this.routineId = routineId;
@@ -37,5 +33,13 @@ public class Routine {
 
     public String getRoutineDescription() {
         return routineDescription;
+    }
+
+    public void setRoutineName(@NonNull String routineName) {
+        this.routineName = routineName;
+    }
+
+    public void setRoutineDescription(String routineDescription) {
+        this.routineDescription = routineDescription;
     }
 }
