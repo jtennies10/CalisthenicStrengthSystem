@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 public class Routine {
 
     @PrimaryKey(autoGenerate = true)
-    private int routineId;
+    private int routineId = 0;
 
     @NonNull
     private String routineName;
@@ -16,8 +16,8 @@ public class Routine {
     private String routineDescription;
 
 
-    public Routine(int routineId, @NonNull String routineName, String routineDescription) {
-        this.routineId = routineId;
+    public Routine(@NonNull String routineName, String routineDescription) {
+        //this.routineId = routineId;
         this.routineName = routineName;
         this.routineDescription = routineDescription;
     }
@@ -33,6 +33,10 @@ public class Routine {
 
     public String getRoutineDescription() {
         return routineDescription;
+    }
+
+    public void setRoutineId(int routineId) {
+        this.routineId = routineId;
     }
 
     public void setRoutineName(@NonNull String routineName) {

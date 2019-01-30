@@ -11,5 +11,5 @@ import java.util.List;
 public interface RoutineExerciseDao {
 
     @Query("SELECT * FROM routine_exercise_table")
-    LiveData<List<UserWeight>> getAllRoutineExercises();
+    LiveData<List<RoutineExercise>> getAllRoutineExercises();
 }

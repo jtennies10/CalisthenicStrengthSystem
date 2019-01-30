@@ -6,7 +6,7 @@
     <string name="sign_in">Sign In</string>
     <string name="register_here"><u>New? Register here</u></string>
     <string name="register_email">Email</string>
-    <string name="register_sign_in"><u>Already have an account?<br/>  Sign in Here</u></string>
+    <string name="register_sign_in"><u>Already have an account?<br />  Sign in Here</u></string>
     <string name="register_register">Register</string>
     <string name="register_password">Password</string>
     <string name="register_username">Username</string>
@@ -28,4 +28,8 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+
+    <string name="hint_word">Word...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Word not saved because it is empty.</string>
 </resources>

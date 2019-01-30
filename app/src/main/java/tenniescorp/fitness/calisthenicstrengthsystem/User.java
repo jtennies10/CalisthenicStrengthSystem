@@ -1,16 +1,17 @@
 package tenniescorp.fitness.calisthenicstrengthsystem;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
 
-@Entity(tableName="user_table")
+@Entity(tableName="user_table", indices = {@Index(value = "userName", unique = true), @Index(value = "email", unique = true)})
 public class User {
 
     @PrimaryKey(autoGenerate = true)
-    private int userId;
+    private int userId = 0;
 
     @NonNull
     private String userName;
@@ -28,7 +29,7 @@ public class User {
     private int heightInInches;
 
 
-    public User(int userId, String userName,@NonNull String email, @NonNull String password,@NonNull String dateOfBirthAsString, int heightInInches) {
+    public User(String userName,@NonNull String email, @NonNull String password,@NonNull String dateOfBirthAsString, int heightInInches) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;

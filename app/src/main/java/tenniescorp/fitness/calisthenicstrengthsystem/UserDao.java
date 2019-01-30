@@ -17,6 +17,10 @@ public interface UserDao {
     void deleteAll();
 
     @Query("SELECT * FROM user_table ORDER BY userName ASC")
-    LiveData<List<User>> getAllUsers();
+    List<User> getAllUsers();
+
+    @Query("SELECT * FROM user_table WHERE (userName = :userNameEmail OR email = :userNameEmail)" +
+            "AND password = :userPassword")
+    List<User>getSpecificUser(String userNameEmail, String userPassword);
 
 }

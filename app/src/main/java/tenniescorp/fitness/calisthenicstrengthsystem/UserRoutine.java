@@ -2,7 +2,6 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName="user_routine_table", primaryKeys = {"userId", "routineId"})
 public class UserRoutine {

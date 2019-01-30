@@ -7,16 +7,16 @@ import android.support.annotation.NonNull;
 @Entity(tableName="exercise_table")
 public class Exercise {
 
-    @PrimaryKey
-    private int exerciseId;
+    @PrimaryKey(autoGenerate = true)
+    private int exerciseId = 0;
 
     @NonNull
     private String exerciseName;
 
     private String exerciseDescription;
 
-    public Exercise(int exerciseId, @NonNull String exerciseName, String exerciseDescription) {
-        this.exerciseId = exerciseId;
+    public Exercise(@NonNull String exerciseName, String exerciseDescription) {
+       // this.exerciseId = exerciseId;
         this.exerciseName = exerciseName;
         this.exerciseDescription = exerciseDescription;
     }
@@ -32,6 +32,10 @@ public class Exercise {
 
     public String getExerciseDescription() {
         return exerciseDescription;
+    }
+
+    public void setExerciseId(int exerciseId) {
+        this.exerciseId = exerciseId;
     }
 
     public void setExerciseName(@NonNull String exerciseName) {
