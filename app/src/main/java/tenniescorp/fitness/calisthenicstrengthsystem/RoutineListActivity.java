@@ -1,0 +1,78 @@
+package tenniescorp.fitness.calisthenicstrengthsystem;
+
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.List;
+
+
+public class RoutineListActivity extends AppCompatActivity {
+
+    public static final int NEW_ROUTINE_ACTIVITY_REQUEST_CODE = 1;
+    private RoutineViewModel routineViewModel;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_routine_list);
+
+        Toolbar toolbar = findViewById(R.id.routine_list_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setLogo(R.drawable.ic_launcher_foreground);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final RoutineListAdapter adapter = new RoutineListAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        routineViewModel = ViewModelProviders.of(this).get(RoutineViewModel.class);
+
+        routineViewModel.getAllRoutines().observe(this, new Observer<List<Routine>>() {
+            @Override
+            public void onChanged(@Nullable final List<Routine> routines) {
+                adapter.setRoutines(routines);
+            }
+        });
+
+        FloatingActionButton newRoutineButton = findViewById(R.id.routine_list_add_button);
+        newRoutineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RoutineListActivity.this, NewRoutineActivity.class);
+                startActivityForResult(intent, NEW_ROUTINE_ACTIVITY_REQUEST_CODE);
+
+            }
+        });
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == NEW_ROUTINE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            String[] newRoutineAsArray = data.getStringArrayExtra(NewRoutineActivity.EXTRA_REPLY);
+            Routine routine = new Routine(newRoutineAsArray[0], newRoutineAsArray[1]);
+            routineViewModel.insert(routine);
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.new_routine_empty_not_saved,
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+}

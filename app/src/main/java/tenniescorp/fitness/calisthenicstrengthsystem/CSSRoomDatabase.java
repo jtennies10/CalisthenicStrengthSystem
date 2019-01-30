@@ -11,13 +11,11 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 
-/*The code in the class relies heavily on the open source tutorial
+/*The code in the class relies heavily in the open source tutorial
 found here https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#6*/
 @Database(entities =
         {User.class, Routine.class, RoutineExercise.class,
@@ -50,9 +48,14 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
             new RoomDatabase.Callback() {
 
                 @Override
+                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                    new PopulateDbAsync(INSTANCE).execute();
+                }
+
+                @Override
                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                     super.onOpen(db);
-                    new PopulateDbAsync(INSTANCE).execute();
+                    //new PopulateDbAsync(INSTANCE).execute();
                 }
             };
 
@@ -71,7 +74,8 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            if(routineDao.getAllRoutines().getValue() == null) {
+            //if(routineDao.getAllRoutines(). == 0) {
+
                 Routine routine = new Routine("Beginner Push",
                         "A beginner level workout routine that works the pushing muscles of the upper body. This workout is good for those who are " +
                                 "looking to get into a good fitness routine and hope to build a foundation of strength.");
@@ -84,9 +88,9 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                         "A beginner level workout routine that works the muscles of the lower body. This workout is good for those who are looking to get into" +
                                 " a good fitness routine and hope to build a foundation of strength.");
                 routineDao.insert(routine);
-            }
+           //}
 
-            if(exerciseDao.getAllExercises().getValue() == null) {
+            //if(exerciseDao.getAllExercises().getValue() == null) {
                 File file = new File("ExercisesPlainText.txt");
                 try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
                     //BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -96,11 +100,11 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                         exerciseDao.insert(new Exercise(exerciseInfo[0], exerciseInfo[1]));
                     }
 
-                } catch(IOException fnfe) {
-                    Log.d("doInBackground: ", "Failed");
+                } catch(IOException ex) {
+                    ex.printStackTrace();
                 }
 
-            }
+            //}
 
 
 
