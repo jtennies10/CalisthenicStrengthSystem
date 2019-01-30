@@ -9,7 +9,7 @@
 
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/routine_list_toolbar"
+        android:id="@+id/exercise_list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         style="@style/toolbar_style"
@@ -28,26 +28,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/routine_list_title"
+            android:text="@string/exercise_list_title"
             style="@style/toolbar_title_style"/>
 
     </android.support.v7.widget.Toolbar>
 
 
     <include layout="@layout/list_content"
-        android:layout_below="@id/routine_list_toolbar"
+        android:layout_below="@id/exercise_list_toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
-<android.support.design.widget.FloatingActionButton
-    android:id="@+id/routine_list_add_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    android:layout_marginBottom="40dp"
-    android:layout_marginEnd="40dp"
-    android:src="@drawable/ic_add_black_24dp"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/exercise_list_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="40dp"
+        android:src="@drawable/ic_add_black_24dp"/>
 
 
 

@@ -45,8 +45,8 @@ public class RoutineListAdapter extends RecyclerView.Adapter<RoutineListAdapter.
         }
     }
 
-    void setRoutines(List<Routine> words){
-        routineList = words;
+    void setRoutines(List<Routine> routines){
+        routineList = routines;
         notifyDataSetChanged();
     }
 

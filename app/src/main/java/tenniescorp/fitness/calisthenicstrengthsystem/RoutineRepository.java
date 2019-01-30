@@ -6,12 +6,12 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
-public class RoutineRespository {
+public class RoutineRepository {
 
     private RoutineDao routineDao;
     private LiveData<List<Routine>> allRoutines;
 
-    RoutineRespository(Application application) {
+    RoutineRepository(Application application) {
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(application);
         routineDao = db.routineDao();
         allRoutines = routineDao.getAllRoutines();

@@ -8,12 +8,12 @@ import java.util.List;
 
 public class RoutineViewModel extends AndroidViewModel {
 
-    private RoutineRespository repository;
+    private RoutineRepository repository;
     private LiveData<List<Routine>> allRoutines;
 
     public RoutineViewModel(Application application) {
         super(application);
-        repository = new RoutineRespository(application);
+        repository = new RoutineRepository(application);
         allRoutines = repository.getAllRoutines();
     }
 

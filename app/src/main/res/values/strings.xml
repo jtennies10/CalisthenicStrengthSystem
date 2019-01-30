@@ -34,6 +34,10 @@
     <string name="new_routine_name">Name</string>
     <string name="new_routine_empty_not_saved">Insufficient data. Routine not saved</string>
     <string name="routine_list_title">Routine List</string>
+    <string name="exercise_list_title">Exercise List</string>
+    <string name="new_exercise_description">Description</string>
+    <string name="new_exercise_name">Name</string>
+    <string name="new_exercise_save_button">Save</string>
 
     <string-array name="exercise_array">
         <item>Pull Up – The traditional pull up! Grab an overhanging bar or structure palms with your palms facing away from you and pull yourself up to the bar using your back muscles. Control the movement on the way down.</item>

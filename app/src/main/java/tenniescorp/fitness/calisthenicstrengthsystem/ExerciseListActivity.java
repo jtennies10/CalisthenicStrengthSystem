@@ -11,48 +11,46 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.List;
 
+public class ExerciseListActivity extends AppCompatActivity {
 
-public class RoutineListActivity extends AppCompatActivity {
-
-    public static final int NEW_ROUTINE_ACTIVITY_REQUEST_CODE = 1;
-    private RoutineViewModel routineViewModel;
+    public static final int NEW_EXERCISE_ACTIVITY_REQUEST_CODE = 1;
+    private ExerciseViewModel exerciseViewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_routine_list);
+        setContentView(R.layout.activity_exercise_list);
 
-        Toolbar toolbar = findViewById(R.id.routine_list_toolbar);
+        Toolbar toolbar = findViewById(R.id.exercise_list_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final RoutineListAdapter adapter = new RoutineListAdapter(this);
+        final ExerciseListAdapter adapter = new ExerciseListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        routineViewModel = ViewModelProviders.of(this).get(RoutineViewModel.class);
+        exerciseViewModel = ViewModelProviders.of(this).get(ExerciseViewModel.class);
 
-        routineViewModel.getAllRoutines().observe(this, new Observer<List<Routine>>() {
+        exerciseViewModel.getAllExercises().observe(this, new Observer<List<Exercise>>() {
             @Override
-            public void onChanged(@Nullable final List<Routine> routines) {
-                adapter.setRoutines(routines);
+            public void onChanged(@Nullable final List<Exercise> exercises) {
+                adapter.setExercises(exercises);
             }
         });
 
-        FloatingActionButton newRoutineButton = findViewById(R.id.routine_list_add_button);
-        newRoutineButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton newExerciseButton = findViewById(R.id.exercise_list_add_button);
+        newExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RoutineListActivity.this, NewRoutineActivity.class);
-                startActivityForResult(intent, NEW_ROUTINE_ACTIVITY_REQUEST_CODE);
+                Intent intent = new Intent(ExerciseListActivity.this, NewExerciseActivity.class);
+                startActivityForResult(intent, NEW_EXERCISE_ACTIVITY_REQUEST_CODE);
 
             }
         });
@@ -61,11 +59,11 @@ public class RoutineListActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == NEW_ROUTINE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            String[] newRoutineAsArray = data.getStringArrayExtra(NewRoutineActivity.EXTRA_REPLY);
-            Routine routine = new Routine(newRoutineAsArray[0], newRoutineAsArray[1]);
-            routineViewModel.insert(routine);
+            //TODO: MANAGE ACTIVITY RESULTS FOR EXERCISE APPROPRIATELY
+        if(requestCode == NEW_EXERCISE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            String[] newExerciseAsArray = data.getStringArrayExtra(NewExerciseActivity.EXTRA_REPLY);
+            Exercise exercise = new Exercise(newExerciseAsArray[0], newExerciseAsArray[1]);
+            exerciseViewModel.insert(exercise);
         } else {
             Toast.makeText(
                     getApplicationContext(),
@@ -73,5 +71,4 @@ public class RoutineListActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
-
 }

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -90,17 +91,20 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                 routineDao.insert(routine);
            //}
 
-            //if(exerciseDao.getAllExercises().getValue() == null) {
+            //TODO: GET FILE READ IN FUNCTIONAL
+                Log.d("File", " being read now");
                 File file = new File("ExercisesPlainText.txt");
                 try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
                     //BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
                     String exercise;
                     while((exercise = bufferedReader.readLine()) != null) {
                         String[] exerciseInfo = exercise.split(" - ");
+                        Log.d(exerciseInfo[0], (", " + exerciseInfo[1]));
                         exerciseDao.insert(new Exercise(exerciseInfo[0], exerciseInfo[1]));
                     }
 
                 } catch(IOException ex) {
+                    Log.d("Read in: ", "FAILED");
                     ex.printStackTrace();
                 }
 
