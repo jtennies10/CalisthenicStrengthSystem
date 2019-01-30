@@ -7,6 +7,14 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 /*The code in the class relies heavily on the open source tutorial
@@ -52,12 +60,13 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
 
         private final RoutineDao routineDao;
         private final UserDao userDao;
-//        private final ExerciseDao exerciseDao;
+        private final ExerciseDao exerciseDao;
 //        private final RoutineExerciseDao routineExerciseDao;
 
         PopulateDbAsync(CSSRoomDatabase db) {
             routineDao = db.routineDao();
             userDao = db.userDao();
+            exerciseDao = db.exerciseDao();
         }
 
         @Override
@@ -76,6 +85,24 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                                 " a good fitness routine and hope to build a foundation of strength.");
                 routineDao.insert(routine);
             }
+
+            if(exerciseDao.getAllExercises().getValue() == null) {
+                File file = new File("ExercisesPlainText.txt");
+                try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+                    //BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+                    String exercise;
+                    while((exercise = bufferedReader.readLine()) != null) {
+                        String[] exerciseInfo = exercise.split(" - ");
+                        exerciseDao.insert(new Exercise(exerciseInfo[0], exerciseInfo[1]));
+                    }
+
+                } catch(IOException fnfe) {
+                    Log.d("doInBackground: ", "Failed");
+                }
+
+            }
+
+
 
             //TODO:Delete this code when moving past login functionality
             if(userDao.getAllUsers() == null) {
