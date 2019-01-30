@@ -52,11 +52,21 @@ public class LogInActivity extends AppCompatActivity {
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplication());
         UserDao uDao = db.userDao();
 
-        insertAsyncTask task = new insertAsyncTask(uDao);
-        task.execute(currentUser);
-        List<User> queryResult = task.getQueryResults();
+        List<User> queryResults = uDao.getSpecificUser(currentUser.getUserName(), currentUser.getPassword());
 
-        if(queryResult.size() == 0)
+
+//        insertAsyncTask task = new insertAsyncTask(uDao);
+//        task.execute(currentUser);
+//        List<User> queryResults;
+//
+        if(queryResults == null || queryResults.size() == 0) {
+            Toast t = Toast.makeText(this, "Invalid Login", Toast.LENGTH_SHORT);
+            t.show();
+            return;
+        }
+
+        Toast t = Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT);
+        t.show();
 
 
     }
@@ -81,26 +91,33 @@ public class LogInActivity extends AppCompatActivity {
         return new User(emailUsername, emailUsername, password, null, -1);
     }
 
-    private static class insertAsyncTask extends AsyncTask<User, Void, List<User>> {
-
-        private UserDao mAsyncTaskDao;
-        private List<User> queryResults;
-
-        insertAsyncTask(UserDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected List<User> doInBackground(final User... params) {
-            User u = params[0];
-            queryResults = mAsyncTaskDao.getSpecificUser(u.getUserName(), u.getPassword());
-            return null;
-        }
-
-        protected List<User> getQueryResults() {
-            return queryResults;
-        }
-    }
+//    private static class insertAsyncTask extends AsyncTask<User, Void, List<User>> {
+//
+//        private UserDao mAsyncTaskDao;
+//        private List<User> queryResults;
+//
+//        insertAsyncTask(UserDao dao, List<User> queryResults) {
+//            mAsyncTaskDao = dao;
+//            this.queryResults = queryResults;
+//        }
+//
+//        @Override
+//        protected List<User> doInBackground(final User... params) {
+//            User u = params[0];
+//            //queryResults =
+//              return mAsyncTaskDao.getAllUsers();       //getSpecificUser(u.getUserName(), u.getPassword());
+//            //return null;
+//        }
+//
+////        protected List<User> getQueryResults() {
+////            return queryResults;
+//////        }
+//
+//        @Override
+//        protected void onPostExecute(List<User> results) {
+//            queryResults = results;
+//        }
+//    }
 
     private void register() {
 

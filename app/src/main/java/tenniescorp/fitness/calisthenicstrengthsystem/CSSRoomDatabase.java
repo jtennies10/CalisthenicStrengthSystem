@@ -30,7 +30,7 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     //create database here
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            CSSRoomDatabase.class, "css_database")
+                            CSSRoomDatabase.class, "css_database").allowMainThreadQueries()
                             .addCallback(roomDatabaseCallback).build();
                 }
             }
@@ -51,11 +51,13 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final RoutineDao routineDao;
+        private final UserDao userDao;
 //        private final ExerciseDao exerciseDao;
 //        private final RoutineExerciseDao routineExerciseDao;
 
         PopulateDbAsync(CSSRoomDatabase db) {
             routineDao = db.routineDao();
+            userDao = db.userDao();
         }
 
         @Override
@@ -74,6 +76,13 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                                 " a good fitness routine and hope to build a foundation of strength.");
                 routineDao.insert(routine);
             }
+
+            //TODO:Delete this code when moving past login functionality
+            if(userDao.getAllUsers() == null) {
+//                User u = new User("jtennies10", "jtennies69@gmail.com", "4thgrade", "1111", 160);
+//                userDao.insert(u);
+            }
+
             return null;
         }
     }
