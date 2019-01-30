@@ -56,7 +56,7 @@ public class LogInActivity extends AppCompatActivity {
         task.execute(currentUser);
         List<User> queryResult = task.getQueryResults();
 
-
+        if(queryResult.size() == 0)
 
 
     }
@@ -81,7 +81,7 @@ public class LogInActivity extends AppCompatActivity {
         return new User(emailUsername, emailUsername, password, null, -1);
     }
 
-    static class insertAsyncTask extends AsyncTask<User, Void, List<User>> {
+    private static class insertAsyncTask extends AsyncTask<User, Void, List<User>> {
 
         private UserDao mAsyncTaskDao;
         private List<User> queryResults;
