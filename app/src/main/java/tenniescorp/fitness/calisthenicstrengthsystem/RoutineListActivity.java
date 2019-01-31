@@ -34,7 +34,13 @@ public class RoutineListActivity extends AppCompatActivity {
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final RoutineListAdapter adapter = new RoutineListAdapter(this);
+
+        RecyclerViewClickListener clickListener = (view, position) -> {
+            Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+        };
+
+
+        final RoutineListAdapter adapter = new RoutineListAdapter(this, clickListener);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

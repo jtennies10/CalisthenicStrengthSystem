@@ -10,8 +10,6 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
         android:background="@color/colorPrimaryDark"
-        android:shadowColor="@color/colorAccent"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="1"/>
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
 </LinearLayout>

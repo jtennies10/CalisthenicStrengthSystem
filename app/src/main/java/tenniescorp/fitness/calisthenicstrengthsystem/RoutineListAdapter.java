@@ -4,6 +4,7 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#10
 */
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,34 +15,47 @@ import java.util.List;
 
 public class RoutineListAdapter extends RecyclerView.Adapter<RoutineListAdapter.RoutineViewHolder> {
 
-    class RoutineViewHolder extends RecyclerView.ViewHolder {
-        private final TextView routineItemView;
+    class RoutineViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private RoutineViewHolder(View itemView) {
+        private final TextView routineItemView;
+        private RecyclerViewClickListener listListener;
+
+        private RoutineViewHolder(View itemView, RecyclerViewClickListener listListener) {
             super(itemView);
             routineItemView = itemView.findViewById(R.id.textView);
+            this.listListener = listListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            listListener.onClick(view, getAdapterPosition());
         }
     }
 
     private final LayoutInflater inflater;
     private List<Routine> routineList; // Cached copy of words
+    private RecyclerViewClickListener listListener;
 
-    RoutineListAdapter(Context context) { inflater = LayoutInflater.from(context); }
+    RoutineListAdapter(Context context, RecyclerViewClickListener listListener) {
+        inflater = LayoutInflater.from(context);
+        this.listListener = listListener;
+    }
 
     @Override
     public RoutineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.recyclerview_item, parent, false);
-        return new RoutineViewHolder(itemView);
+        return new RoutineViewHolder(itemView, listListener);
     }
 
     @Override
-    public void onBindViewHolder(RoutineViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RoutineViewHolder holder, int position) {
         if (routineList != null) {
             Routine current = routineList.get(position);
             holder.routineItemView.setText(current.getRoutineName());
         } else {
             // Covers the case of data not being ready yet.
-            holder.routineItemView.setText("No Routines");
+            holder.routineItemView.setText("No routines");
         }
     }
 

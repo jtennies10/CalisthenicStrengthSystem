@@ -119,10 +119,8 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
 
 
             //TODO:Delete this code when moving past login functionality
-            if(userDao.getAllUsers() == null) {
-//                User u = new User("jtennies10", "jtennies69@gmail.com", "4thgrade", "1111", 160);
-//                userDao.insert(u);
-            }
+            User u = new User("jtennies10", "jtennies69@gmail.com", "4thgrade", "1111", 160);
+            userDao.insert(u);
 
             return null;
         }
