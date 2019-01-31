@@ -41,7 +41,7 @@ public class RoutineListAdapter extends RecyclerView.Adapter<RoutineListAdapter.
             holder.routineItemView.setText(current.getRoutineName());
         } else {
             // Covers the case of data not being ready yet.
-            holder.routineItemView.setText("No Word");
+            holder.routineItemView.setText("No Routines");
         }
     }
 
@@ -51,7 +51,7 @@ public class RoutineListAdapter extends RecyclerView.Adapter<RoutineListAdapter.
     }
 
     // getItemCount() is called many times, and when it is first called,
-    // mWords has not been updated (means initially, it's null, and we can't return null).
+    // routineList has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
         if (routineList != null)
