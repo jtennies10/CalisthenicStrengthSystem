@@ -32,13 +32,15 @@ public class LogInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
-
         if(checkUserSignedIn()) {
             Intent intent = new Intent(this, RoutineListActivity.class);
             startActivity(intent);
         }
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_log_in);
+
+
 
         Button registerButton = findViewById(R.id.sign_in_register_button);
         registerButton.setOnClickListener(registerListener);
