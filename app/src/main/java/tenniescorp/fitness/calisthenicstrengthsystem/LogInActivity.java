@@ -2,6 +2,7 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 
 import android.arch.lifecycle.LiveData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,11 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
+        if(checkUserSignedIn()) {
+            Intent intent = new Intent(this, RoutineListActivity.class);
+            startActivity(intent);
+        }
+
         Button registerButton = findViewById(R.id.sign_in_register_button);
         registerButton.setOnClickListener(registerListener);
 
@@ -54,16 +60,24 @@ public class LogInActivity extends AppCompatActivity {
 
         List<User> queryResults = uDao.getSpecificUser(currentUser.getUserName(), currentUser.getPassword());
 
-
-//        insertAsyncTask task = new insertAsyncTask(uDao);
-//        task.execute(currentUser);
-//        List<User> queryResults;
-//
         if(queryResults == null || queryResults.size() == 0) {
             Toast t = Toast.makeText(this, "Invalid Login", Toast.LENGTH_SHORT);
             t.show();
             return;
         }
+
+        //at this point the login was successful, so record user information to allow
+        //immediate login next time they open the application
+        User verifiedUser = queryResults.get(0);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("UserPreferences", 0);
+        SharedPreferences.Editor preferencesEditor = preferences.edit();
+        preferencesEditor.putInt("userId", verifiedUser.getUserId());
+        preferencesEditor.putString("userName", verifiedUser.getUserName());
+        preferencesEditor.putString("userEmail", verifiedUser.getEmail());
+        preferencesEditor.commit();
+
+        Intent intent = new Intent(this, RoutineListActivity.class);
+        startActivity(intent);
 
         Toast t = Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT);
         t.show();
@@ -91,37 +105,15 @@ public class LogInActivity extends AppCompatActivity {
         return new User(emailUsername, emailUsername, password, null, -1);
     }
 
-//    private static class insertAsyncTask extends AsyncTask<User, Void, List<User>> {
-//
-//        private UserDao mAsyncTaskDao;
-//        private List<User> queryResults;
-//
-//        insertAsyncTask(UserDao dao, List<User> queryResults) {
-//            mAsyncTaskDao = dao;
-//            this.queryResults = queryResults;
-//        }
-//
-//        @Override
-//        protected List<User> doInBackground(final User... params) {
-//            User u = params[0];
-//            //queryResults =
-//              return mAsyncTaskDao.getAllUsers();       //getSpecificUser(u.getUserName(), u.getPassword());
-//            //return null;
-//        }
-//
-////        protected List<User> getQueryResults() {
-////            return queryResults;
-//////        }
-//
-//        @Override
-//        protected void onPostExecute(List<User> results) {
-//            queryResults = results;
-//        }
-//    }
 
     private void register() {
 
         Intent registerIntent = new Intent(this, RegisterActivity.class);
         startActivity(registerIntent);
+    }
+
+    private boolean checkUserSignedIn() {
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("UserPreferences", 0);
+        return (preferences.getAll() != null && preferences.getAll().size() > 0);
     }
 }

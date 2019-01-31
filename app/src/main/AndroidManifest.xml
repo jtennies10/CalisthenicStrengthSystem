@@ -11,13 +11,14 @@
         android:theme="@style/AppTheme">
         <activity android:name=".NewExerciseActivity"></activity>
         <activity android:name=".ExerciseListActivity">
+
+        </activity>
+        <activity android:name=".LogInActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
-        <activity android:name=".LogInActivity" />
+        </intent-filter></activity>
         <activity android:name=".NewRoutineActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".RoutineListActivity">

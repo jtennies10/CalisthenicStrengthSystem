@@ -56,7 +56,7 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                 @Override
                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                     super.onOpen(db);
-                    //new PopulateDbAsync(INSTANCE).execute();
+                   // new PopulateDbAsync(INSTANCE).execute();
                 }
             };
 
@@ -91,22 +91,28 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                 routineDao.insert(routine);
            //}
 
-            //TODO: GET FILE READ IN FUNCTIONAL
-                Log.d("File", " being read now");
-                File file = new File("ExercisesPlainText.txt");
-                try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-                    //BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-                    String exercise;
-                    while((exercise = bufferedReader.readLine()) != null) {
-                        String[] exerciseInfo = exercise.split(" - ");
-                        Log.d(exerciseInfo[0], (", " + exerciseInfo[1]));
-                        exerciseDao.insert(new Exercise(exerciseInfo[0], exerciseInfo[1]));
-                    }
-
-                } catch(IOException ex) {
-                    Log.d("Read in: ", "FAILED");
-                    ex.printStackTrace();
-                }
+                Exercise exercise = new Exercise("Push Up", "Push Up decription here");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Pull Up", "Pull Up desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Squat", "squat desc");
+                exerciseDao.insert(exercise);
+//                Log.d("File", " being read now");
+//                File file = new File("ExercisesPlainText");
+//                String absolutePath = file.getAbsolutePath();
+//                try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
+//                    //BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+//                    String exercise;
+//                    while((exercise = bufferedReader.readLine()) != null) {
+//                        String[] exerciseInfo = exercise.split(" - ");
+//                        Log.d(exerciseInfo[0], (", " + exerciseInfo[1]));
+//                        exerciseDao.insert(new Exercise(exerciseInfo[0], exerciseInfo[1]));
+//                    }
+//
+//                } catch(IOException ex) {
+//                    Log.d("Read in", "FAILED");
+//                    ex.printStackTrace();
+//                }
 
             //}
 
