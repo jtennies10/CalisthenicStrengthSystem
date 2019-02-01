@@ -36,7 +36,14 @@ public class RoutineListActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
         RecyclerViewClickListener clickListener = (view, position) -> {
-            Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RoutineListActivity.this, RoutineDescriptionActivity.class);
+
+            //send the routine with the id
+            intent.putExtra("Routine",
+                    routineViewModel.getAllRoutines().getValue().get(position));
+
+            startActivity(intent);
         };
 
 

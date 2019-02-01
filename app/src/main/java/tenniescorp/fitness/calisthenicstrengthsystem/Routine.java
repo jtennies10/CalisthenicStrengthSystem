@@ -4,8 +4,10 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 @Entity(tableName="routine_table")
-public class Routine {
+public class Routine implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int routineId = 0;
