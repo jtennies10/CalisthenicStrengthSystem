@@ -12,4 +12,7 @@ public interface RoutineExerciseDao {
 
     @Query("SELECT * FROM routine_exercise_table")
     LiveData<List<RoutineExercise>> getAllRoutineExercises();
+
+    @Query("SELECT * FROM exercise_table WHERE ExerciseId IN (SELECT ExerciseId FROM routine_exercise_table WHERE RoutineId = :routineId)")
+    List<Exercise> getRoutineExercises(int routineId);
 }
