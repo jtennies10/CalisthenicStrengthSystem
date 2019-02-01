@@ -25,5 +25,7 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         routineName.setText(currentRoutine.getRoutineName());
         routineDescription.setText(currentRoutine.getRoutineDescription());
 
+        //get recycler view and populate using query to get all exercises with the correct workout_id
+
     }
 }

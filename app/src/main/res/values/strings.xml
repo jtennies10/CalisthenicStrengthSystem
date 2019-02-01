@@ -39,6 +39,7 @@
     <string name="new_exercise_name">Name</string>
     <string name="new_exercise_save_button">Save</string>
     <string name="no_routines">No Routines</string>
+    <string name="routine_exercises">Exercises</string>
 
     <string-array name="exercise_array">
         <item>Pull Up – The traditional pull up! Grab an overhanging bar or structure palms with your palms facing away from you and pull yourself up to the bar using your back muscles. Control the movement on the way down.</item>

@@ -55,5 +55,18 @@
     </ScrollView>
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/routine_name"
+        android:text="@string/routine_exercises"
+        android:textSize="36sp"/>
+
+    <include layout="@layout/list_content"
+        android:id="@+id/routine_exercise_list"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+
 
 </LinearLayout>
