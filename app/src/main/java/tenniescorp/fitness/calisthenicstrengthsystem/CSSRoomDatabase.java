@@ -65,12 +65,13 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
         private final RoutineDao routineDao;
         private final UserDao userDao;
         private final ExerciseDao exerciseDao;
-//        private final RoutineExerciseDao routineExerciseDao;
+        private final RoutineExerciseDao routineExerciseDao;
 
         PopulateDbAsync(CSSRoomDatabase db) {
             routineDao = db.routineDao();
             userDao = db.userDao();
             exerciseDao = db.exerciseDao();
+            routineExerciseDao = db.routineExerciseDao();
         }
 
         @Override
@@ -79,7 +80,9 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
 
                 Routine routine = new Routine("Beginner Push",
                         "A beginner level workout routine that works the pushing muscles of the upper body. This workout is good for those who are " +
-                                "looking to get into a good fitness routine and hope to build a foundation of strength.");
+                                "looking to get into a good fitness routine and hope to build a foundation of strength.A beginner level workout routine that works the pushing muscles of the upper body. This workout is good for those who are \" +\n" +
+                                "                                \"looking to get into a good fitness routine and hope to build a foundation of strength.A beginner level workout routine that works the pushing muscles of the upper body. This workout is good for those who are \" +\n" +
+                                "                                \"looking to get into a good fitness routine and hope to build a foundation of strength.");
                 routineDao.insert(routine);
                 routine = new Routine("Beginner Pull",
                         " A beginner level workout routine that works the pulling muscles of the upper body. This workout is good for those who are looking to get into a " +
@@ -93,10 +96,71 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
 
                 Exercise exercise = new Exercise("Push Up", "Push Up decription here");
                 exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 2", "desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 3", "desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 4", "desc");
+                exerciseDao.insert(exercise);
                 exercise = new Exercise("Pull Up", "Pull Up desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 5", "desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 6", "desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 7", "Pull Up desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push Up", "Push Up decription here");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 2", "desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 3", "desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 4", "desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Pull Up", "Pull Up desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 5", "desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 6", "desc");
+                exerciseDao.insert(exercise);
+                exercise = new Exercise("Push up 7", "Pull Up desc");
                 exerciseDao.insert(exercise);
                 exercise = new Exercise("Squat", "squat desc");
                 exerciseDao.insert(exercise);
+
+                RoutineExercise routineExercise = new RoutineExercise(1, 1);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 2);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 3);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 4);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 5);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 6);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 7);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 8);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 9);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 10);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 11);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 12);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 13);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 14);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 15);
+                routineExerciseDao.insert(routineExercise);
+                routineExercise = new RoutineExercise(1, 16);
+                routineExerciseDao.insert(routineExercise);
 //                Log.d("File", " being read now");
 //                File file = new File("ExercisesPlainText");
 //                String absolutePath = file.getAbsolutePath();

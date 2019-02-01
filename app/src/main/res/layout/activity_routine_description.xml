@@ -42,7 +42,8 @@
     <ScrollView
         android:id="@+id/routine_description_desc_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_weight="2">
 
         <TextView
             android:id="@+id/routine_description_description"
@@ -64,8 +65,9 @@
 
     <include layout="@layout/list_content"
         android:id="@+id/routine_exercise_list"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="1"/>
 
 
 
