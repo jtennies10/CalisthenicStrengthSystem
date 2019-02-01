@@ -1,5 +1,7 @@
 package tenniescorp.fitness.calisthenicstrengthsystem;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +16,7 @@ import java.util.List;
 
 public class RoutineDescriptionActivity extends AppCompatActivity {
 
-    ExerciseViewModel exerciseViewModel;
+    List<Exercise> routineExercises;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +40,19 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         routineDescription.setText(currentRoutine.getRoutineDescription());
 
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(this);
-        List<Exercise> routineExercises = db.routineExerciseDao().getSpecificRoutineExercises(currentRoutine.getRoutineId());
+        routineExercises = db.routineExerciseDao().getSpecificRoutineExercises(currentRoutine.getRoutineId());
+
+        RecyclerViewClickListener clickListener = (view, position) -> {
+            // Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RoutineDescriptionActivity.this, ExerciseDescriptionActivity.class);
+
+            //send the selected Exercise with the intent
+            intent.putExtra("Exercise", routineExercises.get(position));
+            startActivity(intent);
+        };
 
         //create the list adapter and fill it with the data
-        final RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(routineExercises);
+        final RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getApplicationContext(), routineExercises, clickListener);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -49,29 +60,41 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     }
 
-     public class RoutineExerciseAdapter extends RecyclerView.Adapter<RoutineExerciseAdapter.RoutineExerciseViewHolder> {
+     private class RoutineExerciseAdapter extends RecyclerView.Adapter<RoutineExerciseAdapter.RoutineExerciseViewHolder> {
          List<Exercise> routineExercises;
+         RecyclerViewClickListener listListener;
+         Context context;
 
-         class RoutineExerciseViewHolder extends RecyclerView.ViewHolder {
+         class RoutineExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             TextView exerciseItemView;
-            RoutineExerciseViewHolder(View v) {
+             RecyclerViewClickListener listListener;
+            RoutineExerciseViewHolder(View v, RecyclerViewClickListener listListener) {
                 super(v);
                 exerciseItemView = v.findViewById(R.id.textView);
+                this.listListener = listListener;
+                v.setOnClickListener(this);
             }
+
+             @Override
+             public void onClick(View view) {
+                 listListener.onClick(view, getAdapterPosition());
+             }
         }
 
-        RoutineExerciseAdapter(List<Exercise> routineExercises) {
+        RoutineExerciseAdapter(Context context, List<Exercise> routineExercises, RecyclerViewClickListener listListener) {
             this.routineExercises = routineExercises;
+            this.listListener = listListener;
+            this.context = context;
+
         }
 
 
         @Override
         public RoutineExerciseAdapter.RoutineExerciseViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recyclerview_item, parent, false);
+            View v = LayoutInflater.from(context).inflate(R.layout.recyclerview_item, parent, false);
 
-            return new RoutineExerciseViewHolder(v);
+            return new RoutineExerciseViewHolder(v, listListener);
         }
 
 

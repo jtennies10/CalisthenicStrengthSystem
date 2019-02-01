@@ -4,8 +4,10 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 @Entity(tableName="exercise_table")
-public class Exercise {
+public class Exercise implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int exerciseId = 0;

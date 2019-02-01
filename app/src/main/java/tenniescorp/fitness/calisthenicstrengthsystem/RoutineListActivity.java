@@ -39,7 +39,7 @@ public class RoutineListActivity extends AppCompatActivity {
            // Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RoutineListActivity.this, RoutineDescriptionActivity.class);
 
-            //send the routine with the id
+            //send the selected Routine with the intent
             intent.putExtra("Routine",
                     routineViewModel.getAllRoutines().getValue().get(position));
 
