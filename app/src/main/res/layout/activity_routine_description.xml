@@ -94,9 +94,10 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:text="Delete Routine"
+        android:text="@string/delete_routine"
         style="@style/button_style"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:onClick="promptDeleteRoutine"/>
 
     <Button
         android:id="@+id/routine_edit_exercises_button"
@@ -106,9 +107,10 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:text="Edit Exercises"
+        android:text="@string/edit_exercises"
         style="@style/button_style"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:onClick="editExercises"/>
 
     <Button
         android:id="@+id/routine_edit_info_button"
@@ -118,8 +120,53 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:text="Edit Routine Info"
+        android:text="@string/edit_routine_info"
         style="@style/button_style"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:onClick="editRoutineInfo"/>
+
+    <LinearLayout
+        android:id="@+id/delete_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@color/colorPrimary"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="@android:dimen/thumbnail_width"
+            android:layout_height="wrap_content"
+            android:text="@string/are_you_sure_you_want_to_delete_this_routine"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/routine_delete_cancel_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/button_style"
+                android:text="@string/cancel"
+                android:onClick="cancelDeleteRoutine"/>
+
+            <Button
+                android:id="@+id/routine_delete_confirmed_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/button_style"
+                android:text="@string/delete"
+                android:onClick="deleteRoutine"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

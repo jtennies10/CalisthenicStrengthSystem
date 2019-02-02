@@ -11,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
 public class RoutineDescriptionActivity extends AppCompatActivity {
 
+    Routine currentRoutine;
     List<Exercise> routineExercises;
 
     @Override
@@ -36,7 +38,7 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         //get recycler view and populate using query to get all exercises with the correct workout_id
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
-        Routine currentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
+        currentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
         routineName.setText(currentRoutine.getRoutineName());
         routineDescription.setText(currentRoutine.getRoutineDescription());
 
@@ -61,25 +63,54 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     }
 
-    public void toggleRoutineOptions(View v) {
+    public void toggleRoutineOptions(View v) throws InterruptedException {
         Button deleteRoutineBtn = findViewById(R.id.routine_delete_button);
         Button editExerciseBtn = findViewById(R.id.routine_edit_exercises_button);
         Button editRoutineBtn = findViewById(R.id.routine_edit_info_button);
         if(deleteRoutineBtn.getVisibility() == View.GONE) {
             deleteRoutineBtn.setVisibility(View.VISIBLE);
+            wait(33);
             editExerciseBtn.setVisibility(View.VISIBLE);
+            wait(33);
             editRoutineBtn.setVisibility(View.VISIBLE);
         } else {
-            deleteRoutineBtn.setVisibility(View.GONE);
-            editExerciseBtn.setVisibility(View.GONE);
             editRoutineBtn.setVisibility(View.GONE);
+            wait(33);
+            editExerciseBtn.setVisibility(View.GONE);
+            wait(33);
+            deleteRoutineBtn.setVisibility(View.GONE);
         }
 
     }
 
+    public void promptDeleteRoutine(View view) {
+        LinearLayout deleteWarning = findViewById(R.id.delete_warning);
+        deleteWarning.setVisibility(View.VISIBLE);
+
+    }
+
+    public void deleteRoutine(View view) {
+        //delete the routine
+    }
+
+    public void cancelDeleteRoutine(View view) {
+        //close the popup
+        LinearLayout deleteWarning = findViewById(R.id.delete_warning);
+        deleteWarning.setVisibility(View.GONE);
+    }
+
+    public void editExercises(View view) {
+        //start exercise activity, sending current exercise list with it
+
+    }
+
+    public void editRoutineInfo(View view) {
+        //start new routine activity with current routine info
+
+    }
 
 
-     private class RoutineExerciseAdapter extends RecyclerView.Adapter<RoutineExerciseAdapter.RoutineExerciseViewHolder> {
+    private class RoutineExerciseAdapter extends RecyclerView.Adapter<RoutineExerciseAdapter.RoutineExerciseViewHolder> {
          List<Exercise> routineExercises;
          RecyclerViewClickListener listListener;
          Context context;
