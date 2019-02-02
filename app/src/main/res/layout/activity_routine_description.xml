@@ -1,74 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    android:orientation="vertical"
-    tools:context=".RoutineDescriptionActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/routine_list_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        style="@style/toolbar_style"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/logo"
-            android:padding="10dp"
-            android:layout_margin="0dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name_short"
-            style="@style/toolbar_title_style"/>
-
-    </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/routine_description_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/routine_name"/>
-
-    <ScrollView
-        android:id="@+id/routine_description_desc_scrollview"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2">
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        tools:context=".RoutineDescriptionActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/routine_list_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            style="@style/toolbar_style"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/logo"
+                android:padding="10dp"
+                android:layout_margin="0dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name_short"
+                style="@style/toolbar_title_style"/>
+
+        </android.support.v7.widget.Toolbar>
 
         <TextView
-            android:id="@+id/routine_description_description"
+            android:id="@+id/routine_description_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="20sp"
-            />
+            style="@style/routine_name"/>
 
-    </ScrollView>
+        <ScrollView
+            android:id="@+id/routine_description_desc_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/routine_description_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:padding="10dp"
+                android:textSize="20sp"
+                />
+
+        </ScrollView>
 
 
-    <TextView
-        android:layout_width="match_parent"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/routine_name"
+            android:text="@string/routine_exercises"
+            android:textSize="36sp"/>
+
+        <include layout="@layout/list_content"
+            android:id="@+id/routine_exercise_list"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/routine_list_add_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/routine_name"
-        android:text="@string/routine_exercises"
-        android:textSize="36sp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="40dp"
+        android:src="@drawable/ic_edit_white_24dp"
+        android:onClick="toggleRoutineOptions"/>
 
-    <include layout="@layout/list_content"
-        android:id="@+id/routine_exercise_list"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/routine_delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/routine_list_add_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Delete Routine"
+        style="@style/button_style"
+        android:visibility="gone"/>
 
+    <Button
+        android:id="@+id/routine_edit_exercises_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/routine_delete_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Edit Exercises"
+        style="@style/button_style"
+        android:visibility="gone"/>
 
+    <Button
+        android:id="@+id/routine_edit_info_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/routine_edit_exercises_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Edit Routine Info"
+        style="@style/button_style"
+        android:visibility="gone"/>
 
-</LinearLayout>
+</RelativeLayout>

@@ -24,6 +24,7 @@ public class NewRoutineActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.new_routine_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         newRoutineName = findViewById(R.id.new_routine_name);
         newRoutineDescription = findViewById(R.id.new_routine_description);

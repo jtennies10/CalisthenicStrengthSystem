@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -59,6 +60,24 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
 
     }
+
+    public void toggleRoutineOptions(View v) {
+        Button deleteRoutineBtn = findViewById(R.id.routine_delete_button);
+        Button editExerciseBtn = findViewById(R.id.routine_edit_exercises_button);
+        Button editRoutineBtn = findViewById(R.id.routine_edit_info_button);
+        if(deleteRoutineBtn.getVisibility() == View.GONE) {
+            deleteRoutineBtn.setVisibility(View.VISIBLE);
+            editExerciseBtn.setVisibility(View.VISIBLE);
+            editRoutineBtn.setVisibility(View.VISIBLE);
+        } else {
+            deleteRoutineBtn.setVisibility(View.GONE);
+            editExerciseBtn.setVisibility(View.GONE);
+            editRoutineBtn.setVisibility(View.GONE);
+        }
+
+    }
+
+
 
      private class RoutineExerciseAdapter extends RecyclerView.Adapter<RoutineExerciseAdapter.RoutineExerciseViewHolder> {
          List<Exercise> routineExercises;
