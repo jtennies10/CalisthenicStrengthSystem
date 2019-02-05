@@ -36,13 +36,21 @@ public class NewExerciseActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(newExerciseName.getText())) {
                 setResult(RESULT_CANCELED, replyIntent);
             } else {
-                String name = newExerciseName.getText().toString();
-                String description = newExerciseDescription.getText().toString();
-                String[] exerciseInfo = {name, description};
-                replyIntent.putExtra(EXTRA_REPLY, exerciseInfo);
+                String exerciseName = newExerciseName.getText().toString();
+                String exerciseDescription = newExerciseDescription.getText().toString();
+                Exercise exercise = new Exercise(exerciseName, exerciseDescription);
+                replyIntent.putExtra("Exercise", exercise);
                 setResult(RESULT_OK, replyIntent);
             }
             finish();
+
+//            Exercise exercise = new Exercise(
+//                    newExerciseName.getText().toString(), newExerciseDescription.getText().toString());
+//            CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
+//            db.exerciseDao().insert(exercise);
+//
+//            Intent intent = new Intent(this, ExerciseListActivity.class);
+//            startActivity(intent);
         });
     }
 

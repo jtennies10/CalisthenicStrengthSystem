@@ -63,13 +63,12 @@ public class ExerciseListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
             //TODO: MANAGE ACTIVITY RESULTS FOR EXERCISE APPROPRIATELY
         if(requestCode == NEW_EXERCISE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            String[] newExerciseAsArray = data.getStringArrayExtra(NewExerciseActivity.EXTRA_REPLY);
-            Exercise exercise = new Exercise(newExerciseAsArray[0], newExerciseAsArray[1]);
+            Exercise exercise = (Exercise) data.getSerializableExtra("Exercise");
             exerciseViewModel.insert(exercise);
         } else {
             Toast.makeText(
                     getApplicationContext(),
-                    R.string.new_routine_empty_not_saved,
+                    "Exercise not saved",
                     Toast.LENGTH_LONG).show();
         }
     }
