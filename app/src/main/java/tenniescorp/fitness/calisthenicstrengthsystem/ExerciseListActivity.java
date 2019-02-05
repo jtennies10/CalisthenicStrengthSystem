@@ -77,8 +77,21 @@ public class ExerciseListActivity extends AppCompatActivity {
         saveExercisesButton.setOnClickListener(v -> {
             //TODO: UPDATE ROUTINE EXERCISES IN DB ACCORDINGLY, ADD SOME KIND OF TOAST
 
-            Intent intent = new Intent(ExerciseListActivity.this, RoutineListActivity.class);
-            startActivity(intent);
+            //if activity started by the edit exercises option from a routine description,
+            //get the list from the exerciseViewModel, delete all routine exercises that were previously
+            //in the database using the routine id, add the routines that are now selected
+
+
+            //if this activity was called from the new routine activity then don't update the database,
+            //instead pass the exercise list back and allow that activity to handle it
+
+
+            //after doing whatever was necessary, finish the intent
+
+//            Toast.makeText(getApplicationContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
+
+//            Intent intent = new Intent(ExerciseListActivity.this, RoutineListActivity.class);
+//            startActivity(intent);
         });
 
     }

@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -21,4 +22,7 @@ public interface RoutineDao {
 
     @Query("DELETE FROM routine_table WHERE routineId = :routineId")
     void deleteSpecificRoutine(int routineId);
+
+    @Update
+    void update(Routine routine);
 }
