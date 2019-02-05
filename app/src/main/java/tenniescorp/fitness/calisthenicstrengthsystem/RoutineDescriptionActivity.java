@@ -89,6 +89,12 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     public void deleteRoutine(View view) {
         //delete the routine
+        CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
+        db.routineDao().deleteSpecificRoutine(currentRoutine.getRoutineId());
+
+        //use an intent to go back to the routine lists
+        Intent intent = new Intent(this, RoutineListActivity.class);
+        startActivity(intent);
     }
 
     public void cancelDeleteRoutine(View view) {

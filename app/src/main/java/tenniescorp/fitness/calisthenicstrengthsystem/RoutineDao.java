@@ -18,4 +18,7 @@ public interface RoutineDao {
 
     @Query("DELETE FROM routine_table")
     void deleteAll();
+
+    @Query("DELETE FROM routine_table WHERE routineId = :routineId")
+    void deleteSpecificRoutine(int routineId);
 }

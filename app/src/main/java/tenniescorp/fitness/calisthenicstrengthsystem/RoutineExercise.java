@@ -3,10 +3,12 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
 @Entity(tableName="routine_exercise_table", primaryKeys = {"routineId", "exerciseId"})
 public class RoutineExercise {
 
-    @ForeignKey(entity = Routine.class, parentColumns = "routineId", childColumns = "routineId")
+    @ForeignKey(entity = Routine.class, parentColumns = "routineId", childColumns = "routineId",  onDelete = CASCADE)
     private int routineId;
 
     @ForeignKey(entity = Exercise.class, parentColumns = "exerciseId", childColumns = "exerciseId")

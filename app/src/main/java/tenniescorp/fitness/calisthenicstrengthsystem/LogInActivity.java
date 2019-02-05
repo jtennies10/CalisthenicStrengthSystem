@@ -76,7 +76,7 @@ public class LogInActivity extends AppCompatActivity {
         preferencesEditor.putInt("userId", verifiedUser.getUserId());
         preferencesEditor.putString("userName", verifiedUser.getUserName());
         preferencesEditor.putString("userEmail", verifiedUser.getEmail());
-        preferencesEditor.commit();
+        preferencesEditor.apply();
 
         Intent intent = new Intent(this, RoutineListActivity.class);
         startActivity(intent);
