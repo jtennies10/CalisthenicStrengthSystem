@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -34,9 +35,17 @@ public class ExerciseListActivity extends AppCompatActivity {
         parentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        if(recyclerView == null) {
+            Log.d("NUll", "NULL");
+        }
 
         RecyclerViewClickListener clickListener = (view, position) -> {
-            Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+
+            Exercise selectedExercise = exerciseViewModel.getAllExercises().getValue().get(position);
+            if(!selectedExercise.isSelected()) selectedExercise.setSelected(true);
+            else selectedExercise.setSelected(false);
+            //Toast.makeText(view.getContext(), exerciseViewModel.getAllExercises().getValue().get(position).isSelected() + " ", Toast.LENGTH_SHORT).show();
+
         };
 
         RecyclerViewLongClickListener longClickListener = (view, position) -> {

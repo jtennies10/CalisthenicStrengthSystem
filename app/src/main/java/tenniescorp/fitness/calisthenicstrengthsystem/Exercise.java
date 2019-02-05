@@ -1,6 +1,7 @@
 package tenniescorp.fitness.calisthenicstrengthsystem;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -16,6 +17,9 @@ public class Exercise implements Serializable {
     private String exerciseName;
 
     private String exerciseDescription;
+
+    @Ignore
+    private boolean selected = false;
 
     public Exercise(@NonNull String exerciseName, String exerciseDescription) {
        // this.exerciseId = exerciseId;
@@ -36,6 +40,10 @@ public class Exercise implements Serializable {
         return exerciseDescription;
     }
 
+    public boolean isSelected() {
+        return selected;
+    }
+
     public void setExerciseId(int exerciseId) {
         this.exerciseId = exerciseId;
     }
@@ -46,5 +54,9 @@ public class Exercise implements Serializable {
 
     public void setExerciseDescription(String exerciseDescription) {
         this.exerciseDescription = exerciseDescription;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
