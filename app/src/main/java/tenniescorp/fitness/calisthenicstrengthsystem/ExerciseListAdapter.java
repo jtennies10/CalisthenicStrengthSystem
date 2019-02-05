@@ -33,6 +33,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         @Override
         public void onClick(View view) {
             listListener.onClick(view, getAdapterPosition());
+            notifyDataSetChanged();
         }
 
         @Override
