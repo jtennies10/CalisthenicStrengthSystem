@@ -61,13 +61,10 @@ public class RoutineListActivity extends AppCompatActivity {
         });
 
         FloatingActionButton newRoutineButton = findViewById(R.id.routine_list_add_button);
-        newRoutineButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RoutineListActivity.this, NewRoutineActivity.class);
-                startActivityForResult(intent, NEW_ROUTINE_ACTIVITY_REQUEST_CODE);
+        newRoutineButton.setOnClickListener(v -> {
+            Intent intent = new Intent(RoutineListActivity.this, NewRoutineActivity.class);
+            startActivityForResult(intent, NEW_ROUTINE_ACTIVITY_REQUEST_CODE);
 
-            }
         });
 
     }

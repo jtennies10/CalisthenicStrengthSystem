@@ -14,12 +14,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoutineDescriptionActivity extends AppCompatActivity {
 
     Routine currentRoutine;
-    List<Exercise> routineExercises;
+    ArrayList<Exercise> routineExercises;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,8 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         routineDescription.setText(currentRoutine.getRoutineDescription());
 
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(this);
-        routineExercises = db.routineExerciseDao().getSpecificRoutineExercises(currentRoutine.getRoutineId());
+        routineExercises = new ArrayList<>(
+                db.routineExerciseDao().getSpecificRoutineExercises(currentRoutine.getRoutineId()));
 
         RecyclerViewClickListener clickListener = (view, position) -> {
             // Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
@@ -63,21 +65,17 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     }
 
-    public void toggleRoutineOptions(View v) throws InterruptedException {
+    public void toggleRoutineOptions(View v) {
         Button deleteRoutineBtn = findViewById(R.id.routine_delete_button);
         Button editExerciseBtn = findViewById(R.id.routine_edit_exercises_button);
         Button editRoutineBtn = findViewById(R.id.routine_edit_info_button);
         if(deleteRoutineBtn.getVisibility() == View.GONE) {
             deleteRoutineBtn.setVisibility(View.VISIBLE);
-            wait(33);
             editExerciseBtn.setVisibility(View.VISIBLE);
-            wait(33);
             editRoutineBtn.setVisibility(View.VISIBLE);
         } else {
             editRoutineBtn.setVisibility(View.GONE);
-            wait(33);
             editExerciseBtn.setVisibility(View.GONE);
-            wait(33);
             deleteRoutineBtn.setVisibility(View.GONE);
         }
 
@@ -101,63 +99,21 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     public void editExercises(View view) {
         //start exercise activity, sending current exercise list with it
+        Intent intent = new Intent(getApplicationContext(), ExerciseListActivity.class);
+        startActivity(intent);
 
     }
 
     public void editRoutineInfo(View view) {
         //start new routine activity with current routine info
+        Intent intent = new Intent(this, NewRoutineActivity.class);
 
-    }
+        Bundle b = new Bundle();
+        b.putSerializable("Routine", currentRoutine);
+        b.putSerializable("Exercises", routineExercises);
 
+        intent.putExtra("Routine Bundle", b);
+        startActivity(intent);
 
-    private class RoutineExerciseAdapter extends RecyclerView.Adapter<RoutineExerciseAdapter.RoutineExerciseViewHolder> {
-         List<Exercise> routineExercises;
-         RecyclerViewClickListener listListener;
-         Context context;
-
-         class RoutineExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            TextView exerciseItemView;
-             RecyclerViewClickListener listListener;
-            RoutineExerciseViewHolder(View v, RecyclerViewClickListener listListener) {
-                super(v);
-                exerciseItemView = v.findViewById(R.id.textView);
-                this.listListener = listListener;
-                v.setOnClickListener(this);
-            }
-
-             @Override
-             public void onClick(View view) {
-                 listListener.onClick(view, getAdapterPosition());
-             }
-        }
-
-        RoutineExerciseAdapter(Context context, List<Exercise> routineExercises, RecyclerViewClickListener listListener) {
-            this.routineExercises = routineExercises;
-            this.listListener = listListener;
-            this.context = context;
-
-        }
-
-
-        @Override
-        public RoutineExerciseAdapter.RoutineExerciseViewHolder onCreateViewHolder(ViewGroup parent,
-                                                         int viewType) {
-            View v = LayoutInflater.from(context).inflate(R.layout.recyclerview_item, parent, false);
-
-            return new RoutineExerciseViewHolder(v, listListener);
-        }
-
-
-        @Override
-        public void onBindViewHolder(RoutineExerciseViewHolder holder, int position) {
-            holder.exerciseItemView.setText(routineExercises.get(position).getExerciseName());
-
-        }
-
-
-        @Override
-        public int getItemCount() {
-            return routineExercises.size();
-        }
     }
 }

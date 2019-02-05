@@ -2,6 +2,7 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
