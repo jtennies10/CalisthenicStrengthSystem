@@ -25,6 +25,7 @@ public class NewExerciseActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.new_exercise_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         newExerciseName = findViewById(R.id.new_exercise_name);
         newExerciseDescription = findViewById(R.id.new_exercise_description);
