@@ -19,6 +19,7 @@ public class ExerciseListActivity extends AppCompatActivity {
 
     public static final int NEW_EXERCISE_ACTIVITY_REQUEST_CODE = 1;
     private ExerciseViewModel exerciseViewModel;
+    private Routine parentRoutine;
 
 
     @Override
@@ -30,6 +31,7 @@ public class ExerciseListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        parentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final ExerciseListAdapter adapter = new ExerciseListAdapter(this);
@@ -38,21 +40,21 @@ public class ExerciseListActivity extends AppCompatActivity {
 
         exerciseViewModel = ViewModelProviders.of(this).get(ExerciseViewModel.class);
 
-        exerciseViewModel.getAllExercises().observe(this, new Observer<List<Exercise>>() {
-            @Override
-            public void onChanged(@Nullable final List<Exercise> exercises) {
-                adapter.setExercises(exercises);
-            }
-        });
+        exerciseViewModel.getAllExercises().observe(this, exercises -> adapter.setExercises(exercises));
 
         FloatingActionButton newExerciseButton = findViewById(R.id.exercise_list_add_button);
-        newExerciseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ExerciseListActivity.this, NewExerciseActivity.class);
-                startActivityForResult(intent, NEW_EXERCISE_ACTIVITY_REQUEST_CODE);
+        newExerciseButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ExerciseListActivity.this, NewExerciseActivity.class);
+            startActivityForResult(intent, NEW_EXERCISE_ACTIVITY_REQUEST_CODE);
 
-            }
+        });
+
+        FloatingActionButton saveExercisesButton = findViewById(R.id.exercise_list_save_button);
+        saveExercisesButton.setOnClickListener(v -> {
+            //TODO: UPDATE ROUTINE EXERCISES IN DB ACCORDINGLY
+
+            Intent intent = new Intent(ExerciseListActivity.this, RoutineListActivity.class);
+            startActivity(intent);
         });
 
     }

@@ -106,6 +106,7 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
     public void editExercises(View view) {
         //start exercise activity, sending current exercise list with it
         Intent intent = new Intent(getApplicationContext(), ExerciseListActivity.class);
+        intent.putExtra("Routine", currentRoutine);
         startActivity(intent);
 
     }

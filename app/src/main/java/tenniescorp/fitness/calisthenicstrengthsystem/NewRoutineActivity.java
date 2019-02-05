@@ -21,6 +21,7 @@ public class NewRoutineActivity extends AppCompatActivity {
     private EditText newRoutineName;
     private EditText newRoutineDescription;
     private List<Exercise> routineExercises;
+    private Routine currentRoutine;
 
 
     @Override
@@ -48,9 +49,9 @@ public class NewRoutineActivity extends AppCompatActivity {
         };
 
         if(bundle != null) {
-            Routine existingRoutine = (Routine) bundle.getSerializable("Routine");
-            newRoutineName.setText(existingRoutine.getRoutineName());
-            newRoutineDescription.setText(existingRoutine.getRoutineDescription());
+            currentRoutine = (Routine) bundle.getSerializable("Routine");
+            newRoutineName.setText(currentRoutine.getRoutineName());
+            newRoutineDescription.setText(currentRoutine.getRoutineDescription());
 
             routineExercises = (ArrayList) bundle.getSerializable("Exercises");
         }
@@ -83,6 +84,7 @@ public class NewRoutineActivity extends AppCompatActivity {
         final Button addExerciseButton = findViewById(R.id.new_routine_add_button);
         addExerciseButton.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), ExerciseListActivity.class);
+            if(currentRoutine != null) intent.putExtra("Routine", currentRoutine);
             startActivity(intent);
         });
     }

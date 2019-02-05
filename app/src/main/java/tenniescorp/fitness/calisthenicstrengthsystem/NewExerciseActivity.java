@@ -30,20 +30,18 @@ public class NewExerciseActivity extends AppCompatActivity {
         newExerciseDescription = findViewById(R.id.new_exercise_description);
 
         final Button save_button = findViewById(R.id.new_exercise_save_button);
-        save_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent replyIntent = new Intent();
-                if (TextUtils.isEmpty(newExerciseName.getText())) {
-                    setResult(RESULT_CANCELED, replyIntent);
-                } else {
-                    String name = newExerciseName.getText().toString();
-                    String description = newExerciseDescription.getText().toString();
-                    String[] exerciseInfo = {name, description};
-                    replyIntent.putExtra(EXTRA_REPLY, exerciseInfo);
-                    setResult(RESULT_OK, replyIntent);
-                }
-                finish();
+        save_button.setOnClickListener(view -> {
+            Intent replyIntent = new Intent();
+            if (TextUtils.isEmpty(newExerciseName.getText())) {
+                setResult(RESULT_CANCELED, replyIntent);
+            } else {
+                String name = newExerciseName.getText().toString();
+                String description = newExerciseDescription.getText().toString();
+                String[] exerciseInfo = {name, description};
+                replyIntent.putExtra(EXTRA_REPLY, exerciseInfo);
+                setResult(RESULT_OK, replyIntent);
             }
+            finish();
         });
     }
 
