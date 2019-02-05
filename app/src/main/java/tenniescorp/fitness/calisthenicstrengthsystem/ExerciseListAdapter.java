@@ -11,24 +11,50 @@ import java.util.List;
 
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder>{
 
-    class ExerciseViewHolder extends RecyclerView.ViewHolder {
+    class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private final TextView exerciseItemView;
+        private RecyclerViewClickListener listListener;
+        private RecyclerViewLongClickListener longListListener;
 
-        private ExerciseViewHolder(View itemView) {
+        private ExerciseViewHolder(View itemView, RecyclerViewClickListener listListener,
+                                   RecyclerViewLongClickListener longListListener) {
             super(itemView);
             exerciseItemView = itemView.findViewById(R.id.textView);
+            this.listListener = listListener;
+            this.longListListener = longListListener;
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            listListener.onClick(view, getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            longListListener.onClick(view, getAdapterPosition());
+            return false;
         }
     }
 
     private final LayoutInflater inflater;
     private List<Exercise> exerciseList; // Cached copy of words
+    private RecyclerViewClickListener listListener;
+    private RecyclerViewLongClickListener longListListener;
 
-    ExerciseListAdapter(Context context) { inflater = LayoutInflater.from(context); }
+    ExerciseListAdapter(Context context, RecyclerViewClickListener listListener,
+                        RecyclerViewLongClickListener longListListener) {
+        inflater = LayoutInflater.from(context);
+        this.listListener = listListener;
+        this.longListListener = longListListener;
+    }
 
     @Override
     public ExerciseListAdapter.ExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.recyclerview_item, parent, false);
-        return new ExerciseListAdapter.ExerciseViewHolder(itemView);
+        return new ExerciseListAdapter.ExerciseViewHolder(itemView, listListener, longListListener);
     }
 
     @Override

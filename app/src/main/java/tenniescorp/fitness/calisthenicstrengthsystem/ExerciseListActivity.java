@@ -34,7 +34,22 @@ public class ExerciseListActivity extends AppCompatActivity {
         parentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final ExerciseListAdapter adapter = new ExerciseListAdapter(this);
+
+        RecyclerViewClickListener clickListener = (view, position) -> {
+            Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+        };
+
+        RecyclerViewLongClickListener longClickListener = (view, position) -> {
+            Intent intent = new Intent(ExerciseListActivity.this, ExerciseDescriptionActivity.class);
+
+            //send the selected Routine with the intent
+            intent.putExtra("Exercise",
+                    exerciseViewModel.getAllExercises().getValue().get(position));
+
+            startActivity(intent);
+        };
+
+        final ExerciseListAdapter adapter = new ExerciseListAdapter(this, clickListener, longClickListener);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -51,7 +66,7 @@ public class ExerciseListActivity extends AppCompatActivity {
 
         FloatingActionButton saveExercisesButton = findViewById(R.id.exercise_list_save_button);
         saveExercisesButton.setOnClickListener(v -> {
-            //TODO: UPDATE ROUTINE EXERCISES IN DB ACCORDINGLY
+            //TODO: UPDATE ROUTINE EXERCISES IN DB ACCORDINGLY, ADD SOME KIND OF TOAST
 
             Intent intent = new Intent(ExerciseListActivity.this, RoutineListActivity.class);
             startActivity(intent);
@@ -61,7 +76,6 @@ public class ExerciseListActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            //TODO: MANAGE ACTIVITY RESULTS FOR EXERCISE APPROPRIATELY
         if(requestCode == NEW_EXERCISE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Exercise exercise = (Exercise) data.getSerializableExtra("Exercise");
             exerciseViewModel.insert(exercise);
