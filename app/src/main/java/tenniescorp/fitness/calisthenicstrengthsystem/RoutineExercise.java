@@ -10,32 +10,32 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 public class RoutineExercise {
 
     @PrimaryKey(autoGenerate = true)
-    private int routineExerciseId;
+    private long routineExerciseId;
 
     @ForeignKey(entity = Routine.class, parentColumns = "routineId", childColumns = "routineId",  onDelete = CASCADE)
-    private int routineId;
+    private long routineId;
 
     @ForeignKey(entity = Exercise.class, parentColumns = "exerciseId", childColumns = "exerciseId")
-    private int exerciseId;
+    private long exerciseId;
 
-    public RoutineExercise(int routineId, int exerciseId) {
+    public RoutineExercise(long routineId, long exerciseId) {
         this.routineId = routineId;
         this.exerciseId = exerciseId;
     }
 
-    public int getRoutineId() {
+    public long getRoutineId() {
         return routineId;
     }
 
-    public int getExerciseId() {
+    public long getExerciseId() {
         return exerciseId;
     }
 
-    public int getRoutineExerciseId() {
+    public long getRoutineExerciseId() {
         return routineExerciseId;
     }
 
-    public void setRoutineExerciseId(int routineExerciseId) {
+    public void setRoutineExerciseId(long routineExerciseId) {
         this.routineExerciseId = routineExerciseId;
     }
 }

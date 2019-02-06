@@ -70,21 +70,37 @@ public class RoutineListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == NEW_ROUTINE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-//            String[] newRoutineAsArray = data.getStringArrayExtra(NewRoutineActivity.EXTRA_REPLY);
-//            Routine routine = new Routine(newRoutineAsArray[0], newRoutineAsArray[1]);
             Routine routine = (Routine) data.getSerializableExtra("Routine");
             List<Exercise> routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
 
-            routineViewModel.insert(routine);
+
             CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
-            for(int i = 0; i < routineExercises.size(); i++) {
-                RoutineExercise routineExercise = new RoutineExercise(routine.getRoutineId(), routineExercises.get(i).getExerciseId());
-                Log.d(routine.getRoutineId()+",", " " + routineExercises.get(i).getExerciseId());
-                db.routineExerciseDao().insert(routineExercise);
-
-
-
+            long routineId = db.routineDao().insert(routine);
+            //db.routineExerciseDao().insert(new RoutineExercise(routine.getRoutineId(), routineExercises.get(0).getExerciseId()));
+            if(routineExercises != null) {
+                for (int i = 0; i < routineExercises.size(); i++) {
+                    RoutineExercise routineExercise = new RoutineExercise(routineId, routineExercises.get(i).getExerciseId());
+                    Log.d(routineId + ",", " " + routineExercises.get(i).getExerciseId());
+                    db.routineExerciseDao().insert(routineExercise);
+                }
             }
+
+//            if(requestCode == ROUTINE_DESCRIPTION_ACTIVITY_CODE && resultCode == RESULT_OK) {
+//                Routine routine = (Routine) data.getSerializableExtra("Routine");
+//
+//                routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
+//                //delete the current routineExercises
+//                CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
+//                db.routineExerciseDao().deleteRoutineExercises(routine.getRoutineId());
+//
+//                //insert the new routineExercise records
+//                for(int i = 0; i < routineExercises.size(); i++) {
+//                    RoutineExercise routineExercise = new RoutineExercise(routine.getRoutineId(), routineExercises.get(i).getExerciseId());
+//                    db.routineExerciseDao().insert(routineExercise);
+//                }
+//
+//                final RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getApplicationContext(), routineExercises, clickListener);
+//                recyclerView.setAdapter(adapter);
 
         } else {
             Toast.makeText(

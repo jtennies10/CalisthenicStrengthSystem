@@ -7,21 +7,21 @@ import android.arch.persistence.room.ForeignKey;
 public class UserRoutine {
 
     @ForeignKey(entity = User.class, parentColumns = "userId", childColumns = "userId")
-    private int userId;
+    private long userId;
 
     @ForeignKey(entity = Routine.class, parentColumns = "routineId", childColumns = "routineId")
-    private int routineId;
+    private long routineId;
 
-    public UserRoutine(int userId, int routineId) {
+    public UserRoutine(long userId, long routineId) {
         this.userId = userId;
         this.routineId = routineId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public int getRoutineId() {
+    public long getRoutineId() {
         return routineId;
     }
 

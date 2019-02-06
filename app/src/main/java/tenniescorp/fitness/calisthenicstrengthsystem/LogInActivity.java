@@ -73,7 +73,7 @@ public class LogInActivity extends AppCompatActivity {
         User verifiedUser = queryResults.get(0);
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("UserPreferences", 0);
         SharedPreferences.Editor preferencesEditor = preferences.edit();
-        preferencesEditor.putInt("userId", verifiedUser.getUserId());
+        preferencesEditor.putLong("userId", verifiedUser.getUserId());
         preferencesEditor.putString("userName", verifiedUser.getUserName());
         preferencesEditor.putString("userEmail", verifiedUser.getEmail());
         preferencesEditor.apply();

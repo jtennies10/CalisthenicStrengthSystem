@@ -11,10 +11,10 @@ import java.util.Date;
 public class UserWeight {
 
     @PrimaryKey(autoGenerate = true)
-    private int weightId;
+    private long weightId;
 
     @ForeignKey(entity = User.class, parentColumns = "userId", childColumns = "userId")
-    private int userId;
+    private long userId;
 
     @NonNull
     private int weightInPounds;
@@ -22,18 +22,18 @@ public class UserWeight {
     @NonNull
     private String weightDateAsString;
 
-    public UserWeight(int userId, int weightInPounds, @NonNull String weightDateAsString) {
+    public UserWeight(long userId, int weightInPounds, @NonNull String weightDateAsString) {
         this.weightId = weightId;
         this.userId = userId;
         this.weightInPounds = weightInPounds;
         this.weightDateAsString = weightDateAsString;
     }
 
-    public int getWeightId() {
+    public long getWeightId() {
         return weightId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
@@ -54,7 +54,7 @@ public class UserWeight {
         this.weightDateAsString = weightDateAsString;
     }
 
-    public void setWeightId(int weightId) {
+    public void setWeightId(long weightId) {
         this.weightId = weightId;
     }
 }

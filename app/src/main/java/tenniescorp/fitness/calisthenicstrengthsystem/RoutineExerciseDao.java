@@ -16,11 +16,11 @@ public interface RoutineExerciseDao {
     LiveData<List<RoutineExercise>> getAllRoutineExercises();
 
     @Query("SELECT * FROM exercise_table WHERE ExerciseId IN (SELECT ExerciseId FROM routine_exercise_table WHERE RoutineId = :routineId)")
-    List<Exercise> getSpecificRoutineExercises(int routineId);
+    List<Exercise> getSpecificRoutineExercises(long routineId);
 
     @Insert
-    void insert(RoutineExercise routineExercise);
+    long insert(RoutineExercise routineExercise);
 
     @Query("DELETE FROM routine_exercise_table WHERE :routineId = RoutineId")
-    void deleteRoutineExercises(int routineId);
+    void deleteRoutineExercises(long routineId);
 }

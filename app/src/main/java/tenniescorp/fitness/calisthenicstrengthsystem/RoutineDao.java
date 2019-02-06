@@ -12,7 +12,7 @@ import java.util.List;
 public interface RoutineDao {
 
     @Insert
-    void insert(Routine routine);
+    long insert(Routine routine);
 
     @Query("SELECT * FROM routine_table")
     LiveData<List<Routine>> getAllRoutines();
@@ -21,7 +21,7 @@ public interface RoutineDao {
     void deleteAll();
 
     @Query("DELETE FROM routine_table WHERE routineId = :routineId")
-    void deleteSpecificRoutine(int routineId);
+    void deleteSpecificRoutine(long routineId);
 
     @Update
     void update(Routine routine);

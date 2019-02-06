@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Exercise implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int exerciseId;
+    private long exerciseId;
 
     @NonNull
     private String exerciseName;
@@ -27,7 +27,7 @@ public class Exercise implements Serializable {
         this.exerciseDescription = exerciseDescription;
     }
 
-    public int getExerciseId() {
+    public long getExerciseId() {
         return exerciseId;
     }
 
@@ -44,7 +44,7 @@ public class Exercise implements Serializable {
         return selected;
     }
 
-    public void setExerciseId(int exerciseId) {
+    public void setExerciseId(long exerciseId) {
         this.exerciseId = exerciseId;
     }
 

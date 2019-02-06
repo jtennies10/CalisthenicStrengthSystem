@@ -11,7 +11,7 @@ import java.util.Date;
 public class User {
 
     @PrimaryKey(autoGenerate = true)
-    private int userId;
+    private long userId;
 
     @NonNull
     private String userName;
@@ -39,7 +39,7 @@ public class User {
 
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
@@ -67,7 +67,7 @@ public class User {
         return heightInInches;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +44,14 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
 
         currentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
+        Log.d("Routine name, id", currentRoutine.getRoutineName() + " " + currentRoutine.getRoutineId());
         routineName.setText(currentRoutine.getRoutineName());
         routineDescription.setText(currentRoutine.getRoutineDescription());
 
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(this);
         routineExercises = new ArrayList<>(
                 db.routineExerciseDao().getSpecificRoutineExercises(currentRoutine.getRoutineId()));
+
 
         clickListener = (view, position) -> {
             // Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
@@ -115,24 +118,22 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if(requestCode == ROUTINE_DESCRIPTION_ACTIVITY_CODE && resultCode == RESULT_OK) {
-            Routine routine = (Routine) data.getSerializableExtra("Routine");
+                Routine routine = (Routine) data.getSerializableExtra("Routine");
 
-            routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
-            //delete the current routineExercises
-            CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
-            db.routineExerciseDao().deleteRoutineExercises(routine.getRoutineId());
+                routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
+                //delete the current routineExercises
+                CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
+                db.routineExerciseDao().deleteRoutineExercises(routine.getRoutineId());
 
-            //insert the new routineExercise records
-            for(int i = 0; i < routineExercises.size(); i++) {
-                RoutineExercise routineExercise = new RoutineExercise(routine.getRoutineId(), routineExercises.get(i).getExerciseId());
-                db.routineExerciseDao().insert(routineExercise);
-            }
+                //insert the new routineExercise records
+                for(int i = 0; i < routineExercises.size(); i++) {
+                    RoutineExercise routineExercise = new RoutineExercise(routine.getRoutineId(), routineExercises.get(i).getExerciseId());
+                    db.routineExerciseDao().insert(routineExercise);
+                }
 
-            final RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getApplicationContext(), routineExercises, clickListener);
-            recyclerView.setAdapter(adapter);
-
+                final RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getApplicationContext(), routineExercises, clickListener);
+                recyclerView.setAdapter(adapter);
         } else {
             Toast.makeText(
                     getApplicationContext(),

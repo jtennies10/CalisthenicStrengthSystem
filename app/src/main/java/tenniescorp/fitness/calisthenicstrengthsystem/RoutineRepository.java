@@ -22,7 +22,7 @@ public class RoutineRepository {
     }
 
     public void insert(Routine routine) {
-        new insertAsyncTask(routineDao).execute(routine);
+         new insertAsyncTask(routineDao).execute(routine);
     }
 
     private static class insertAsyncTask extends AsyncTask<Routine, Void, Void> {

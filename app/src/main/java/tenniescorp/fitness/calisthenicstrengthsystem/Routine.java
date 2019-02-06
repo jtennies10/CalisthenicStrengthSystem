@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Routine implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int routineId;
+    private long routineId;
 
     @NonNull
     private String routineName;
@@ -25,7 +25,7 @@ public class Routine implements Serializable {
         this.routineDescription = routineDescription;
     }
 
-    public int getRoutineId() {
+    public long getRoutineId() {
         return routineId;
     }
 
@@ -38,7 +38,7 @@ public class Routine implements Serializable {
         return routineDescription;
     }
 
-    public void setRoutineId(int routineId) {
+    public void setRoutineId(long routineId) {
         this.routineId = routineId;
     }
 

@@ -14,5 +14,5 @@ public interface ExerciseDao {
     LiveData<List<Exercise>> getAllExercises();
 
     @Insert
-    void insert(Exercise exercise);
+    long insert(Exercise exercise);
 }
