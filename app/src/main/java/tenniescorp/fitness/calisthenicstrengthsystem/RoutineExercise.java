@@ -2,11 +2,15 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(tableName="routine_exercise_table", primaryKeys = {"routineId", "exerciseId"})
+@Entity(tableName="routine_exercise_table")
 public class RoutineExercise {
+
+    @PrimaryKey(autoGenerate = true)
+    private int routineExerciseId;
 
     @ForeignKey(entity = Routine.class, parentColumns = "routineId", childColumns = "routineId",  onDelete = CASCADE)
     private int routineId;
@@ -25,5 +29,13 @@ public class RoutineExercise {
 
     public int getExerciseId() {
         return exerciseId;
+    }
+
+    public int getRoutineExerciseId() {
+        return routineExerciseId;
+    }
+
+    public void setRoutineExerciseId(int routineExerciseId) {
+        this.routineExerciseId = routineExerciseId;
     }
 }

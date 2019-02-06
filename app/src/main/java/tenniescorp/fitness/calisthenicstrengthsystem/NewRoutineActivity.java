@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ public class NewRoutineActivity extends AppCompatActivity {
     private EditText newRoutineDescription;
     private ArrayList<Exercise> routineExercises;
     private Routine currentRoutine;
+    private RecyclerView recyclerView;
+    private RecyclerViewClickListener clickListener;
 
 
     @Override
@@ -40,7 +43,7 @@ public class NewRoutineActivity extends AppCompatActivity {
         //look for the intent that started the activity and see if a routine is found
         Bundle bundle = (getIntent().getBundleExtra("Routine Bundle"));
 
-        RecyclerViewClickListener clickListener = (view, position) -> {
+        clickListener = (view, position) -> {
             // Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(NewRoutineActivity.this, ExerciseDescriptionActivity.class);
 
@@ -58,7 +61,7 @@ public class NewRoutineActivity extends AppCompatActivity {
         }
 
         //get recycler view and populate using query to get all exercises with the correct workout_id
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
 
         //create the list adapter and fill it with the data
         final RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getApplicationContext(), routineExercises, clickListener);
@@ -72,6 +75,9 @@ public class NewRoutineActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(newRoutineName.getText())) {
                 setResult(RESULT_CANCELED, replyIntent);
             } else {
+               // List<Exercise> updatedExercises = new List(routineExercises);
+                if(currentRoutine == null) currentRoutine = new Routine(
+                        newRoutineName.getText().toString(), newRoutineDescription.getText().toString());
                 replyIntent.putExtra("Routine", currentRoutine);
                 replyIntent.putExtra("Exercises", routineExercises);
                 setResult(RESULT_OK, replyIntent);
@@ -95,6 +101,9 @@ public class NewRoutineActivity extends AppCompatActivity {
 
         if(requestCode == NEW_ROUTINE_ACTIVITY_CODE && resultCode == RESULT_OK) {
             routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
+
+            final RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getApplicationContext(), routineExercises, clickListener);
+            recyclerView.setAdapter(adapter);
 
         } else {
             Toast.makeText(

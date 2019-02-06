@@ -11,7 +11,7 @@ import java.util.Date;
 public class UserWeight {
 
     @PrimaryKey(autoGenerate = true)
-    private int weightId = 0;
+    private int weightId;
 
     @ForeignKey(entity = User.class, parentColumns = "userId", childColumns = "userId")
     private int userId;

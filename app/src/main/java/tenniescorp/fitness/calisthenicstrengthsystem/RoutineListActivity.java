@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -71,13 +73,17 @@ public class RoutineListActivity extends AppCompatActivity {
 //            String[] newRoutineAsArray = data.getStringArrayExtra(NewRoutineActivity.EXTRA_REPLY);
 //            Routine routine = new Routine(newRoutineAsArray[0], newRoutineAsArray[1]);
             Routine routine = (Routine) data.getSerializableExtra("Routine");
-            List<Exercise> routineExercises = (List) data.getSerializableExtra("Exercises");
+            List<Exercise> routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
 
             routineViewModel.insert(routine);
             CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
             for(int i = 0; i < routineExercises.size(); i++) {
                 RoutineExercise routineExercise = new RoutineExercise(routine.getRoutineId(), routineExercises.get(i).getExerciseId());
+                Log.d(routine.getRoutineId()+",", " " + routineExercises.get(i).getExerciseId());
                 db.routineExerciseDao().insert(routineExercise);
+
+
+
             }
 
         } else {

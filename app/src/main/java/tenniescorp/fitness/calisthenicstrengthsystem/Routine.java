@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Routine implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int routineId = 0;
+    private int routineId;
 
     @NonNull
     private String routineName;

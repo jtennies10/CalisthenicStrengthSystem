@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Exercise implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int exerciseId = 0;
+    private int exerciseId;
 
     @NonNull
     private String exerciseName;
