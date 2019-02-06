@@ -78,6 +78,10 @@ public class NewRoutineActivity extends AppCompatActivity {
                // List<Exercise> updatedExercises = new List(routineExercises);
                 if(currentRoutine == null) currentRoutine = new Routine(
                         newRoutineName.getText().toString(), newRoutineDescription.getText().toString());
+                else {
+                    currentRoutine.setRoutineName(newRoutineName.getText().toString());
+                    currentRoutine.setRoutineDescription(newRoutineDescription.getText().toString());
+                }
                 replyIntent.putExtra("Routine", currentRoutine);
                 replyIntent.putExtra("Exercises", routineExercises);
                 setResult(RESULT_OK, replyIntent);

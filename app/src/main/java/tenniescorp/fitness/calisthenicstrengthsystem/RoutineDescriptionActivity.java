@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoutineDescriptionActivity extends AppCompatActivity {
-    public static final int ROUTINE_DESCRIPTION_ACTIVITY_CODE = 2;
+    public static final int EDIT_EXERCISES_ROUTINE_DESCRIPTION_ACTIVITY_CODE = 2;
+    public static final int EDIT_ROUTINE_ROUTINE_DESCRIPTION_ACTIVITY_CODE = 3;
+
     Routine currentRoutine;
     ArrayList<Exercise> routineExercises;
     RecyclerView recyclerView;
@@ -113,12 +115,12 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         //start exercise activity, sending current exercise list with it
         Intent intent = new Intent(getApplicationContext(), ExerciseListActivity.class);
         intent.putExtra("Routine", currentRoutine);
-        startActivityForResult(intent, ROUTINE_DESCRIPTION_ACTIVITY_CODE);
+        startActivityForResult(intent, EDIT_EXERCISES_ROUTINE_DESCRIPTION_ACTIVITY_CODE);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == ROUTINE_DESCRIPTION_ACTIVITY_CODE && resultCode == RESULT_OK) {
+        if(resultCode == RESULT_OK) {
                 Routine routine = (Routine) data.getSerializableExtra("Routine");
 
                 routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
@@ -134,10 +136,26 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
                 final RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getApplicationContext(), routineExercises, clickListener);
                 recyclerView.setAdapter(adapter);
-        } else {
+
+                if(requestCode == EDIT_ROUTINE_ROUTINE_DESCRIPTION_ACTIVITY_CODE) {
+                    Log.d("ROUTINE", "TRUE");
+                    db.routineDao().update(routine);
+
+                    //set the update routine name and description
+                    TextView routineName = findViewById(R.id.routine_description_name);
+                    TextView routineDescription = findViewById(R.id.routine_description_description);
+
+                    Log.d("ROUTINE NAME", routine.getRoutineName());
+                    Log.d("ROUTINE DESC", routine.getRoutineDescription());
+
+                    routineName.setText(routine.getRoutineName());
+                    routineDescription.setText(routine.getRoutineDescription());
+                }
+
+        }  else {
             Toast.makeText(
                     getApplicationContext(),
-                    R.string.new_routine_empty_not_saved,
+                    "Not saved",
                     Toast.LENGTH_LONG).show();
         }
     }
@@ -151,7 +169,7 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         b.putSerializable("Exercises", routineExercises);
 
         intent.putExtra("Routine Bundle", b);
-        startActivity(intent);
+        startActivityForResult(intent, EDIT_ROUTINE_ROUTINE_DESCRIPTION_ACTIVITY_CODE);
 
     }
 }
