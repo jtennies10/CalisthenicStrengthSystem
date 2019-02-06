@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseListActivity extends AppCompatActivity {
@@ -35,9 +36,9 @@ public class ExerciseListActivity extends AppCompatActivity {
         parentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        if(recyclerView == null) {
-            Log.d("NUll", "NULL");
-        }
+//        if(recyclerView == null) {
+//            Log.d("NUll", "NULL");
+//        }
 
         RecyclerViewClickListener clickListener = (view, position) -> {
 
@@ -75,18 +76,24 @@ public class ExerciseListActivity extends AppCompatActivity {
 
         FloatingActionButton saveExercisesButton = findViewById(R.id.exercise_list_save_button);
         saveExercisesButton.setOnClickListener(v -> {
-            //TODO: UPDATE ROUTINE EXERCISES IN DB ACCORDINGLY, ADD SOME KIND OF TOAST
 
-            //if activity started by the edit exercises option from a routine description,
-            //get the list from the exerciseViewModel, delete all routine exercises that were previously
-            //in the database using the routine id, add the routines that are now selected
+//            Intent callingIntent = getIntent();
+            Intent replyIntent = new Intent();
+
+            //get the selected exercises and pass them back with the reply intent
+            //as well as the exercises' parent routine
+            ArrayList<Exercise> selectedExercises = new ArrayList<>();
+            List<Exercise> allExercises = exerciseViewModel.getAllExercises().getValue();
+            for(int i = 0; i < allExercises.size(); i++) {
+                if(allExercises.get(i).isSelected()) selectedExercises.add(allExercises.get(i));
+            }
+
+            replyIntent.putExtra("Routine", parentRoutine);
+            replyIntent.putExtra("Exercises", selectedExercises);
+            setResult(RESULT_OK, replyIntent);
 
 
-            //if this activity was called from the new routine activity then don't update the database,
-            //instead pass the exercise list back and allow that activity to handle it
-
-
-            //after doing whatever was necessary, finish the intent
+            finish();
 
 //            Toast.makeText(getApplicationContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
 

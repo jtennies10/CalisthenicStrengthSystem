@@ -53,12 +53,7 @@ public class RoutineListActivity extends AppCompatActivity {
 
         routineViewModel = ViewModelProviders.of(this).get(RoutineViewModel.class);
 
-        routineViewModel.getAllRoutines().observe(this, new Observer<List<Routine>>() {
-            @Override
-            public void onChanged(@Nullable final List<Routine> routines) {
-                adapter.setRoutines(routines);
-            }
-        });
+        routineViewModel.getAllRoutines().observe(this, routines -> adapter.setRoutines(routines));
 
         FloatingActionButton newRoutineButton = findViewById(R.id.routine_list_add_button);
         newRoutineButton.setOnClickListener(v -> {
@@ -73,9 +68,18 @@ public class RoutineListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == NEW_ROUTINE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            String[] newRoutineAsArray = data.getStringArrayExtra(NewRoutineActivity.EXTRA_REPLY);
-            Routine routine = new Routine(newRoutineAsArray[0], newRoutineAsArray[1]);
+//            String[] newRoutineAsArray = data.getStringArrayExtra(NewRoutineActivity.EXTRA_REPLY);
+//            Routine routine = new Routine(newRoutineAsArray[0], newRoutineAsArray[1]);
+            Routine routine = (Routine) data.getSerializableExtra("Routine");
+            List<Exercise> routineExercises = (List) data.getSerializableExtra("Exercises");
+
             routineViewModel.insert(routine);
+            CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
+            for(int i = 0; i < routineExercises.size(); i++) {
+                RoutineExercise routineExercise = new RoutineExercise(routine.getRoutineId(), routineExercises.get(i).getExerciseId());
+                db.routineExerciseDao().insert(routineExercise);
+            }
+
         } else {
             Toast.makeText(
                     getApplicationContext(),

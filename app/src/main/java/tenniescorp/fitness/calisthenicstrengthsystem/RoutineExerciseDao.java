@@ -20,4 +20,7 @@ public interface RoutineExerciseDao {
 
     @Insert
     void insert(RoutineExercise routineExercise);
+
+    @Query("DELETE FROM routine_exercise_table WHERE :routineId = RoutineId")
+    void deleteRoutineExercises(int routineId);
 }

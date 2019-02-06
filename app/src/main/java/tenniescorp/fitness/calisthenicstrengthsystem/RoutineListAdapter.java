@@ -39,7 +39,7 @@ public class RoutineListAdapter extends RecyclerView.Adapter<RoutineListAdapter.
 
     RoutineListAdapter(Context context, RecyclerViewClickListener listListener) {
         inflater = LayoutInflater.from(context);
-        this.listListener = listListener;
+
     }
 
     @Override

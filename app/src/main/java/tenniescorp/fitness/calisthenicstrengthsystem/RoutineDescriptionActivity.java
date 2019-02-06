@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoutineDescriptionActivity extends AppCompatActivity {
-
+    public static final int ROUTINE_DESCRIPTION_ACTIVITY_CODE = 2;
     Routine currentRoutine;
     ArrayList<Exercise> routineExercises;
 
@@ -107,8 +108,32 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         //start exercise activity, sending current exercise list with it
         Intent intent = new Intent(getApplicationContext(), ExerciseListActivity.class);
         intent.putExtra("Routine", currentRoutine);
-        startActivity(intent);
+        startActivityForResult(intent, ROUTINE_DESCRIPTION_ACTIVITY_CODE);
+    }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == ROUTINE_DESCRIPTION_ACTIVITY_CODE && resultCode == RESULT_OK) {
+            Routine routine = (Routine) data.getSerializableExtra("Routine");
+            List<Exercise> exercises = (List) data.getSerializableExtra("Exercises");
+
+            //delete the current routineExercises
+            CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
+            db.routineExerciseDao().deleteRoutineExercises(routine.getRoutineId());
+
+            //insert the new routineExercise records
+            for(int i = 0; i < exercises.size(); i++) {
+                RoutineExercise routineExercise = new RoutineExercise(routine.getRoutineId(), exercises.get(i).getExerciseId());
+                db.routineExerciseDao().insert(routineExercise);
+            }
+
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.new_routine_empty_not_saved,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     public void editRoutineInfo(View view) {

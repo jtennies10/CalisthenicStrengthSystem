@@ -10,17 +10,18 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewRoutineActivity extends AppCompatActivity {
-
+    public static final int NEW_ROUTINE_ACTIVITY_CODE = 1;
     public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
 
     private EditText newRoutineName;
     private EditText newRoutineDescription;
-    private List<Exercise> routineExercises;
+    private ArrayList<Exercise> routineExercises;
     private Routine currentRoutine;
 
 
@@ -65,17 +66,15 @@ public class NewRoutineActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-
+        //TODO: FIX THIS CLICK EVENT
         final Button saveButton = findViewById(R.id.new_routine_save_button);
         saveButton.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
             if (TextUtils.isEmpty(newRoutineName.getText())) {
                 setResult(RESULT_CANCELED, replyIntent);
             } else {
-                String name = newRoutineName.getText().toString();
-                String description = newRoutineDescription.getText().toString();
-                String[] routineInfo = {name, description};
-                replyIntent.putExtra(EXTRA_REPLY, routineInfo);
+                replyIntent.putExtra("Routine", currentRoutine);
+                replyIntent.putExtra("Exercises", routineExercises);
                 setResult(RESULT_OK, replyIntent);
             }
             finish();
@@ -83,9 +82,26 @@ public class NewRoutineActivity extends AppCompatActivity {
 
         final Button addExerciseButton = findViewById(R.id.new_routine_add_button);
         addExerciseButton.setOnClickListener(view -> {
+//            Intent intent = new Intent(getApplicationContext(), ExerciseListActivity.class);
+//            if(currentRoutine != null) intent.putExtra("Routine", currentRoutine);
+//            startActivity(intent);
             Intent intent = new Intent(getApplicationContext(), ExerciseListActivity.class);
-            if(currentRoutine != null) intent.putExtra("Routine", currentRoutine);
-            startActivity(intent);
+            startActivityForResult(intent, NEW_ROUTINE_ACTIVITY_CODE);
         });
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == NEW_ROUTINE_ACTIVITY_CODE && resultCode == RESULT_OK) {
+            routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
+
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.new_routine_empty_not_saved,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }
