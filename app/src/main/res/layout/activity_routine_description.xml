@@ -13,7 +13,7 @@
         tools:context=".RoutineDescriptionActivity">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/routine_list_toolbar"
+            android:id="@+id/routine_description_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             style="@style/toolbar_style"
@@ -22,6 +22,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <ImageView
+                android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -34,6 +35,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/app_name_short"
                 style="@style/toolbar_title_style"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/routine_description_favorite_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_star_border_black_24dp"
+                    android:onClick="toggleRoutineFavorite"/>
+
+            </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
 

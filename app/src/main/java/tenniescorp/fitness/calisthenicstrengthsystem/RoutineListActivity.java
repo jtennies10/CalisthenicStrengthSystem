@@ -55,6 +55,8 @@ public class RoutineListActivity extends AppCompatActivity {
 
         routineViewModel = ViewModelProviders.of(this).get(RoutineViewModel.class);
 
+        //TODO:SORT ROUTINES BASED ON SHARED PREFERENCES
+
         routineViewModel.getAllRoutines().observe(this, routines -> adapter.setRoutines(routines));
 
         FloatingActionButton newRoutineButton = findViewById(R.id.routine_list_add_button);
@@ -84,23 +86,6 @@ public class RoutineListActivity extends AppCompatActivity {
                     db.routineExerciseDao().insert(routineExercise);
                 }
             }
-
-//            if(requestCode == ROUTINE_DESCRIPTION_ACTIVITY_CODE && resultCode == RESULT_OK) {
-//                Routine routine = (Routine) data.getSerializableExtra("Routine");
-//
-//                routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
-//                //delete the current routineExercises
-//                CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
-//                db.routineExerciseDao().deleteRoutineExercises(routine.getRoutineId());
-//
-//                //insert the new routineExercise records
-//                for(int i = 0; i < routineExercises.size(); i++) {
-//                    RoutineExercise routineExercise = new RoutineExercise(routine.getRoutineId(), routineExercises.get(i).getExerciseId());
-//                    db.routineExerciseDao().insert(routineExercise);
-//                }
-//
-//                final RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getApplicationContext(), routineExercises, clickListener);
-//                recyclerView.setAdapter(adapter);
 
         } else {
             Toast.makeText(

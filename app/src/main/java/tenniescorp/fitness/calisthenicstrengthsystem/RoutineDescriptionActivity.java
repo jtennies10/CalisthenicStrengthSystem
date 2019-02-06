@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,15 +28,19 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
     ArrayList<Exercise> routineExercises;
     RecyclerView recyclerView;
     RecyclerViewClickListener clickListener;
+    boolean favorited;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_description);
 
-        Toolbar toolbar = findViewById(R.id.routine_list_toolbar);
+        Toolbar toolbar = findViewById(R.id.routine_description_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        //TODO: SET FAVORITED BASED ON WHAT IS IN THE SHARED PREFERENCES
 
 
 
@@ -86,7 +91,19 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
             editExerciseBtn.setVisibility(View.GONE);
             deleteRoutineBtn.setVisibility(View.GONE);
         }
+    }
 
+    public void toggleRoutineFavorite(View v) {
+        ImageView star = findViewById(R.id.routine_description_favorite_star);
+        if(favorited) {
+            star.setImageResource(R.drawable.ic_star_border_black_24dp);
+            favorited = false;
+            //TODO: DELETE ROUTINE FROM SHARED PREFERENCES
+        } else {
+            star.setImageResource(R.drawable.ic_star_black_24dp);
+            favorited = true;
+            //TODO: ADD ROUTINE TO SHARED PREFERENCES
+        }
     }
 
     public void promptDeleteRoutine(View view) {
