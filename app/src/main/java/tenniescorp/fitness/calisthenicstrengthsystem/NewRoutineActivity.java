@@ -66,7 +66,6 @@ public class NewRoutineActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        //TODO: FIX THIS CLICK EVENT
         final Button saveButton = findViewById(R.id.new_routine_save_button);
         saveButton.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
