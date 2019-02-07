@@ -58,11 +58,6 @@ public class RoutineListActivity extends AppCompatActivity {
 
         routineViewModel.getAllRoutines().observe(this, routines -> adapter.setRoutines(routines));
 
-        //TODO:SORT ROUTINES BASED ON SHARED PREFERENCES
-//        if(routineViewModel.getAllRoutines().getValue() != null) {
-//            Log.d("Sorting", "Rooutines");
-//            sortByFavorites(routineViewModel.getAllRoutines().getValue());
-//        }
 
         FloatingActionButton newRoutineButton = findViewById(R.id.routine_list_add_button);
         newRoutineButton.setOnClickListener(v -> {
@@ -97,18 +92,6 @@ public class RoutineListActivity extends AppCompatActivity {
                     getApplicationContext(),
                     R.string.new_routine_empty_not_saved,
                     Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private static void sortByFavorites(List<Routine> routines) {
-        int nextFavoritePosition = 0;
-        for(int i = 0; i < routines.size(); i++) {
-            if(routines.get(i).isFavorited()) {
-                Routine temp = routines.get(i);
-                routines.set(i, routines.get(nextFavoritePosition));
-                routines.set(nextFavoritePosition, temp);
-                nextFavoritePosition++;
-            }
         }
     }
 
