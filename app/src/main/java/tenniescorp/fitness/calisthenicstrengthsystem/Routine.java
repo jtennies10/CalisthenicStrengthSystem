@@ -18,6 +18,8 @@ public class Routine implements Serializable {
 
     private String routineDescription;
 
+    private boolean favorited = false;
+
 
     public Routine(@NonNull String routineName, String routineDescription) {
         //this.routineId = routineId;
@@ -38,6 +40,10 @@ public class Routine implements Serializable {
         return routineDescription;
     }
 
+    public boolean isFavorited() {
+        return favorited;
+    }
+
     public void setRoutineId(long routineId) {
         this.routineId = routineId;
     }
@@ -48,5 +54,9 @@ public class Routine implements Serializable {
 
     public void setRoutineDescription(String routineDescription) {
         this.routineDescription = routineDescription;
+    }
+
+    public void setFavorited(boolean favorited) {
+        this.favorited = favorited;
     }
 }

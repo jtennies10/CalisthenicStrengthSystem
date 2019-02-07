@@ -2,6 +2,7 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RoutineDescriptionActivity extends AppCompatActivity {
     public static final int EDIT_EXERCISES_ROUTINE_DESCRIPTION_ACTIVITY_CODE = 2;
@@ -28,7 +31,6 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
     ArrayList<Exercise> routineExercises;
     RecyclerView recyclerView;
     RecyclerViewClickListener clickListener;
-    boolean favorited;
 
 
     @Override
@@ -40,10 +42,6 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        //TODO: SET FAVORITED BASED ON WHAT IS IN THE SHARED PREFERENCES
-
-
-
         TextView routineName = findViewById(R.id.routine_description_name);
         TextView routineDescription = findViewById(R.id.routine_description_description);
 
@@ -54,6 +52,11 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         Log.d("Routine name, id", currentRoutine.getRoutineName() + " " + currentRoutine.getRoutineId());
         routineName.setText(currentRoutine.getRoutineName());
         routineDescription.setText(currentRoutine.getRoutineDescription());
+
+        if(currentRoutine.isFavorited()) {
+            ImageView favoriteImage = findViewById(R.id.routine_description_favorite_star);
+            favoriteImage.setImageResource(R.drawable.ic_star_black_24dp);
+        }
 
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(this);
         routineExercises = new ArrayList<>(
@@ -78,6 +81,13 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
+        db.routineDao().update(currentRoutine);
+    }
+
     public void toggleRoutineOptions(View v) {
         Button deleteRoutineBtn = findViewById(R.id.routine_delete_button);
         Button editExerciseBtn = findViewById(R.id.routine_edit_exercises_button);
@@ -95,15 +105,23 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     public void toggleRoutineFavorite(View v) {
         ImageView star = findViewById(R.id.routine_description_favorite_star);
-        if(favorited) {
+//        Set<String> favoriteRoutines = new HashSet<>();
+//
+//        SharedPreferences preferences = getApplicationContext().getSharedPreferences("UserPreferences", 0);
+//        preferences.getStringSet("Favorited exercises", favoriteRoutines);
+//        SharedPreferences.Editor preferencesEditor = preferences.edit();
+//
+//        String routineIds[] = favoriteRoutines.toArray();
+
+
+        if(currentRoutine.isFavorited()) {
             star.setImageResource(R.drawable.ic_star_border_black_24dp);
-            favorited = false;
-            //TODO: DELETE ROUTINE FROM SHARED PREFERENCES
+            currentRoutine.setFavorited(false);
         } else {
             star.setImageResource(R.drawable.ic_star_black_24dp);
-            favorited = true;
-            //TODO: ADD ROUTINE TO SHARED PREFERENCES
+            currentRoutine.setFavorited(true);
         }
+//        preferencesEditor.apply();
     }
 
     public void promptDeleteRoutine(View view) {
