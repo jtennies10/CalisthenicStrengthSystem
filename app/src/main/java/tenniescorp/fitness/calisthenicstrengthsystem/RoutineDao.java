@@ -14,7 +14,7 @@ public interface RoutineDao {
     @Insert
     long insert(Routine routine);
 
-    @Query("SELECT * FROM routine_table")
+    @Query("SELECT * FROM routine_table ORDER BY favorited DESC")
     LiveData<List<Routine>> getAllRoutines();
 
     @Query("DELETE FROM routine_table")
