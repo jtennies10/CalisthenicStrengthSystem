@@ -3,6 +3,7 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -95,4 +96,32 @@ public class RoutineListActivity extends AppCompatActivity {
         }
     }
 
+    public void toggleMoreOptions(View view) {
+        Button weightTrackerBtn = findViewById(R.id.weight_tracker_button);
+        Button signOutBtn = findViewById(R.id.sign_out_button);
+
+        if(weightTrackerBtn.getVisibility() == View.GONE) {
+            weightTrackerBtn.setVisibility(View.VISIBLE);
+            signOutBtn.setVisibility(View.VISIBLE);
+        } else {
+            weightTrackerBtn.setVisibility(View.GONE);
+            signOutBtn.setVisibility(View.GONE);
+        }
+
+    }
+
+    public void startWeightTracker(View view) {
+    }
+
+    public void signOut(View view) {
+        SharedPreferences preferences = getSharedPreferences("UserPreferences", 0);
+        SharedPreferences.Editor preferencesEditor = preferences.edit();
+        preferencesEditor.remove("userId");
+        preferencesEditor.remove("userName");
+        preferencesEditor.remove("userEmail");
+        preferencesEditor.apply();
+
+        Intent intent = new Intent(this, LogInActivity.class);
+        startActivity(intent);
+    }
 }

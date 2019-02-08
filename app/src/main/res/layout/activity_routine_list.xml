@@ -31,7 +31,47 @@
             android:text="@string/routine_list_title"
             style="@style/toolbar_title_style"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/routine_list_more_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_more_vert_black_30dp"
+                android:onClick="toggleMoreOptions"/>
+
+        </RelativeLayout>
+
     </android.support.v7.widget.Toolbar>
+
+    <Button
+        android:id="@+id/sign_out_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weight_tracker_button"
+        android:layout_alignParentEnd="true"
+        android:text="@string/sign_out"
+        style="@style/button_style"
+        android:background="@color/colorAccent"
+        android:visibility="gone"
+        android:onClick="signOut"/>
+
+    <Button
+        android:id="@+id/weight_tracker_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/routine_list_toolbar"
+        android:layout_alignParentEnd="true"
+        android:text="@string/weight_tracker"
+        style="@style/button_style"
+        android:background="@color/colorAccent"
+        android:visibility="gone"
+        android:onClick="startWeightTracker"/>
 
 
     <include layout="@layout/list_content"
