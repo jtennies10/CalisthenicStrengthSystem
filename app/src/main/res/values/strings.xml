@@ -44,7 +44,7 @@
     <string name="delete_routine">Delete Routine</string>
     <string name="edit_exercises">Edit Exercises</string>
     <string name="edit_routine_info">Edit Routine Info</string>
-    <string name="are_you_sure_you_want_to_delete_this_routine">Are you sure?</string>
+    <string name="are_you_sure">Are you sure?</string>
     <string name="cancel">cancel</string>
     <string name="delete">delete</string>
     <string name="sign_out">Sign Out</string>

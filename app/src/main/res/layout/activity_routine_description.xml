@@ -155,7 +155,7 @@
         <TextView
             android:layout_width="@android:dimen/thumbnail_width"
             android:layout_height="wrap_content"
-            android:text="@string/are_you_sure_you_want_to_delete_this_routine"
+            android:text="@string/are_you_sure"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp"/>
 

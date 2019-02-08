@@ -105,14 +105,6 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     public void toggleRoutineFavorite(View v) {
         ImageView star = findViewById(R.id.routine_description_favorite_star);
-//        Set<String> favoriteRoutines = new HashSet<>();
-//
-//        SharedPreferences preferences = getApplicationContext().getSharedPreferences("UserPreferences", 0);
-//        preferences.getStringSet("Favorited exercises", favoriteRoutines);
-//        SharedPreferences.Editor preferencesEditor = preferences.edit();
-//
-//        String routineIds[] = favoriteRoutines.toArray();
-
 
         if(currentRoutine.isFavorited()) {
             star.setImageResource(R.drawable.ic_star_border_black_24dp);

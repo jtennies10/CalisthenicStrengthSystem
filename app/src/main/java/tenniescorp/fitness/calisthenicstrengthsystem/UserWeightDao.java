@@ -12,4 +12,6 @@ public interface UserWeightDao {
 
     @Query("SELECT * FROM user_weight_table")
     LiveData<List<UserWeight>> getAllUserWeights();
+
+    @Query("")
 }
