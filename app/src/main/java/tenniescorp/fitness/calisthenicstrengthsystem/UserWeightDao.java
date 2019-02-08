@@ -11,7 +11,11 @@ import java.util.List;
 public interface UserWeightDao {
 
     @Query("SELECT * FROM user_weight_table")
-    LiveData<List<UserWeight>> getAllUserWeights();
+    List<UserWeight> getAllUserWeights();
 
-    @Query("")
+    @Query("SELECT * FROM user_weight_table WHERE userId=:userId")
+    List<UserWeight> getCurrentUserWeights(long userId);
+
+    @Query("DELETE FROM user_weight_table WHERE userId=:userId")
+    void deleteCurrentUserWeights(long userId);
 }
