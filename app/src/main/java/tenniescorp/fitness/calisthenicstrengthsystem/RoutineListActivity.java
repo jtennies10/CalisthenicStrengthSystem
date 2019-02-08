@@ -67,6 +67,12 @@ public class RoutineListActivity extends AppCompatActivity {
 
         });
 
+        Button weightTrackerBtn = findViewById(R.id.weight_tracker_button);
+        Button signOutBtn = findViewById(R.id.sign_out_button);
+
+        weightTrackerBtn.setVisibility(View.GONE);
+        signOutBtn.setVisibility(View.GONE);
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -111,6 +117,8 @@ public class RoutineListActivity extends AppCompatActivity {
     }
 
     public void startWeightTracker(View view) {
+        Intent intent = new Intent(this, WeightTrackerActivity.class);
+        startActivity(intent);
     }
 
     public void signOut(View view) {

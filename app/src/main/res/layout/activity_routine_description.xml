@@ -58,7 +58,7 @@
             android:id="@+id/routine_description_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/routine_name"/>
+            style="@style/title_format"/>
 
         <ScrollView
             android:id="@+id/routine_description_desc_scrollview"
@@ -81,7 +81,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/routine_name"
+            style="@style/title_format"
             android:text="@string/routine_exercises"
             android:textSize="36sp"/>
 

@@ -50,6 +50,18 @@
     </android.support.v7.widget.Toolbar>
 
     <Button
+        android:id="@+id/weight_tracker_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/routine_list_toolbar"
+        android:layout_alignParentEnd="true"
+        android:text="@string/weight_tracker"
+        style="@style/button_style"
+        android:background="@color/colorAccent"
+        android:visibility="gone"
+        android:onClick="startWeightTracker"/>
+
+    <Button
         android:id="@+id/sign_out_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -61,17 +73,7 @@
         android:visibility="gone"
         android:onClick="signOut"/>
 
-    <Button
-        android:id="@+id/weight_tracker_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/routine_list_toolbar"
-        android:layout_alignParentEnd="true"
-        android:text="@string/weight_tracker"
-        style="@style/button_style"
-        android:background="@color/colorAccent"
-        android:visibility="gone"
-        android:onClick="startWeightTracker"/>
+
 
 
     <include layout="@layout/list_content"

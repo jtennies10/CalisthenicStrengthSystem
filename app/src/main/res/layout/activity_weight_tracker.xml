@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/new_routine_toolbar"
+        android:id="@+id/routine_list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         style="@style/toolbar_style"
@@ -25,71 +27,60 @@
             android:layout_margin="0dp"/>
 
         <TextView
-            android:id="@+id/routine_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name_short"
+            android:text="@string/weight_tracker"
             style="@style/toolbar_title_style"/>
 
     </android.support.v7.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/new_routine_name"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/new_routine_name"
-        android:textColorHint="@color/colorPrimary"
-        android:textColor="@color/colorPrimary"
-        android:backgroundTint="@color/colorAccent"
-        android:inputType="textAutoComplete"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/new_routine_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/new_routine_description"
-        android:textColorHint="@color/colorPrimary"
-        android:textColor="@color/colorPrimary"
-        android:backgroundTint="@color/colorAccent"
-        android:inputType="textAutoComplete"
-        android:textSize="18sp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        style="@style/title_format"
+        android:text="Chart here"
+        android:textSize="36sp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/title_format"
-        android:text="@string/routine_exercises"
+        android:text="@string/weight_records"
         android:textSize="36sp"/>
 
+
     <include layout="@layout/list_content"
-        android:id="@+id/new_routine_exercise_list"
+        android:id="@+id/weight_tracker_record_list"
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_weight="1"/>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/new_routine_add_button"
+            android:id="@+id/weight_tracker_add_record_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/button_style"
-            android:text="@string/new_routine_add_exercises"/>
+            android:text="@string/add_record"/>
 
         <Button
-            android:id="@+id/new_routine_save_button"
+            android:id="@+id/weight_tracker_delete_records_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/button_style"
-            android:text="@string/new_routine_save_button" />
+            android:text="@string/delete_records" />
 
 
     </LinearLayout>
 
+
+
 </LinearLayout>
+
+

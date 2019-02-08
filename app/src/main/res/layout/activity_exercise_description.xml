@@ -37,7 +37,7 @@
         android:id="@+id/exercise_description_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/routine_name"/>
+        style="@style/title_format"/>
 
     <ScrollView
         android:id="@+id/exercise_description_desc_scrollview"

@@ -49,6 +49,9 @@
     <string name="delete">delete</string>
     <string name="sign_out">Sign Out</string>
     <string name="weight_tracker">Weight Tracker</string>
+    <string name="add_record">Add Record</string>
+    <string name="delete_records">Delete Records</string>
+    <string name="weight_records">Weight Records</string>
 
     <string-array name="exercise_array">
         <item>Pull Up – The traditional pull up! Grab an overhanging bar or structure palms with your palms facing away from you and pull yourself up to the bar using your back muscles. Control the movement on the way down.</item>

@@ -9,7 +9,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExerciseDescriptionActivity"></activity>
+        <activity android:name=".WeightTrackerActivity"></activity>
+        <activity android:name=".ExerciseDescriptionActivity" />
         <activity android:name=".RoutineDescriptionActivity" />
         <activity android:name=".NewExerciseActivity" />
         <activity android:name=".ExerciseListActivity" />
