@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -37,32 +36,30 @@ public class UserWeightListAdapter extends RecyclerView.Adapter<UserWeightListAd
     }
 
     @Override
-    public void onBindViewHolder(ExerciseListAdapter.ExerciseViewHolder holder, int position) {
+    public void onBindViewHolder(UserWeightListAdapter.UserWeightViewHolder holder, int position) {
         if (userWeightList != null) {
             UserWeight current = userWeightList.get(position);
-            holder.exerciseItemView.setText(current.getExerciseName());
+            String userWeight = current.getWeightInPounds() + "lbs";
+            holder.userWeightTextView.setText(userWeight);
+            holder.dateTextView.setText(current.getWeightDateAsString());
         } else {
             // Covers the case of data not being ready yet.
-            holder.exerciseItemView.setText("No Exercises");
+            holder.dateTextView.setText("No Records");
         }
     }
 
-    void setExercises(List<Exercise> exercises){
-        exerciseList = exercises;
-        notifyDataSetChanged();
-    }
+//    void setUserWeights(List<UserWeight> userWeights){
+//        userWeightList = userWeights;
+//        notifyDataSetChanged();
+//    }
 
     // getItemCount() is called many times, and when it is first called,
     // mWords has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
-        if (exerciseList != null)
-            return exerciseList.size();
+        if (userWeightList != null)
+            return userWeightList.size();
         else return 0;
     }
 
-    public void changeItemState(int position) {
-        if(exerciseList.get(position).isSelected()) exerciseList.get(position).setSelected(false);
-        else exerciseList.get(position).setSelected(true);
-    }
 }
