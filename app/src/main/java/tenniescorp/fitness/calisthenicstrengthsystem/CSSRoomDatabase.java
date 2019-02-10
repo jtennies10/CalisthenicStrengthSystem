@@ -28,6 +28,7 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
     public abstract RoutineDao routineDao();
     public abstract ExerciseDao exerciseDao();
     public abstract RoutineExerciseDao routineExerciseDao();
+    public abstract UserWeightDao userWeightDao();
 
     private static volatile CSSRoomDatabase INSTANCE;
 
@@ -66,12 +67,14 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
         private final UserDao userDao;
         private final ExerciseDao exerciseDao;
         private final RoutineExerciseDao routineExerciseDao;
+        private final UserWeightDao userWeightDao;
 
         PopulateDbAsync(CSSRoomDatabase db) {
             routineDao = db.routineDao();
             userDao = db.userDao();
             exerciseDao = db.exerciseDao();
             routineExerciseDao = db.routineExerciseDao();
+            userWeightDao = db.userWeightDao();
         }
 
         @Override

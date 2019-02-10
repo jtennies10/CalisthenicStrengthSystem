@@ -95,10 +95,6 @@ public class ExerciseListActivity extends AppCompatActivity {
 
             finish();
 
-//            Toast.makeText(getApplicationContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
-
-//            Intent intent = new Intent(ExerciseListActivity.this, RoutineListActivity.class);
-//            startActivity(intent);
         });
 
     }

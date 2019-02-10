@@ -14,7 +14,7 @@
 
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/routine_list_toolbar"
+            android:id="@+id/weight_tracker_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             style="@style/toolbar_style"
