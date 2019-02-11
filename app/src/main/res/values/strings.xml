@@ -55,6 +55,7 @@
     <string name="add_weight">Add Weight</string>
     <string name="weight_in_lbs">Weight in Lbs</string>
     <string name="add">Add</string>
+    <string name="no_records">No Records</string>
 
     <string-array name="exercise_array">
         <item>Pull Up – The traditional pull up! Grab an overhanging bar or structure palms with your palms facing away from you and pull yourself up to the bar using your back muscles. Control the movement on the way down.</item>

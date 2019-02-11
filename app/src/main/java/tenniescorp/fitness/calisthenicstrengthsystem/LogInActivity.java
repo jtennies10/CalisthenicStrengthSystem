@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,12 @@ public class LogInActivity extends AppCompatActivity {
 
         Button signInButton = findViewById(R.id.sign_in_sign_in_button);
         signInButton.setOnClickListener(signInListener);
+
+        //create db here and run an obselete query
+        //this ensures the database is successfully pre-populated
+        CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplication());
+        UserDao userDao = db.userDao();
+        userDao.getAllUsers();
     }
 
     private void signIn() {
@@ -58,11 +65,12 @@ public class LogInActivity extends AppCompatActivity {
         }
 
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplication());
-        UserDao uDao = db.userDao();
 
-        List<User> queryResults = uDao.getSpecificUser(currentUser.getUserName(), currentUser.getPassword());
+        List<User> queryResults = db.userDao().getSpecificUser(currentUser.getUserName(), currentUser.getPassword());
 
-        if(queryResults == null || queryResults.size() == 0) {
+        if(queryResults.size() == 0) {
+            Log.d("2nd", "fail");
+            Log.d(currentUser.getUserName(), currentUser.getPassword());
             Toast t = Toast.makeText(this, "Invalid Login", Toast.LENGTH_SHORT);
             t.show();
             return;

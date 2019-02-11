@@ -1,6 +1,7 @@
 package tenniescorp.fitness.calisthenicstrengthsystem;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,12 +42,19 @@ public class UserWeightListAdapter extends RecyclerView.Adapter<UserWeightListAd
     public void onBindViewHolder(UserWeightListAdapter.UserWeightViewHolder holder, int position) {
         if (userWeightList != null) {
             UserWeight current = userWeightList.get(position);
+
             String userWeight = current.getWeightInPounds() + "lbs";
+            if(current == userWeightList.get(userWeightList.size()-1)
+                    && userWeightList.size() > 1) userWeight += " (Predicted)";
+
             holder.userWeightTextView.setText(userWeight);
             holder.dateTextView.setText(getDateAsString(current));
+
         } else {
-            // Covers the case of data not being ready yet.
-            holder.dateTextView.setText("No Records");
+            // Covers the case of data not being ready yet
+            String noRecords = "No Records";
+            holder.dateTextView.setText(noRecords);
+
         }
     }
 

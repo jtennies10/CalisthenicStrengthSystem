@@ -172,14 +172,14 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
 
 
             User u = new User("jtennies10", "jtennies69@gmail.com", "4thgrade", "1111", 160);
-            u.setUserId(1);
+            u.setUserId(0);
             userDao.insert(u);
 
-            UserWeight userWeight = new UserWeight(1, 145, (Calendar.getInstance().getTimeInMillis()-3000000000L));
+            UserWeight userWeight = new UserWeight(0, 145, (Calendar.getInstance().getTimeInMillis()-3000000000L));
             userWeightDao.insert(userWeight);
-            userWeight = new UserWeight(1, 155, (Calendar.getInstance().getTimeInMillis()-2500000000L));
+            userWeight = new UserWeight(0, 155, (Calendar.getInstance().getTimeInMillis()-2500000000L));
             userWeightDao.insert(userWeight);
-            userWeight = new UserWeight(1, 150, (Calendar.getInstance().getTimeInMillis()-1900000000L));
+            userWeight = new UserWeight(0, 150, (Calendar.getInstance().getTimeInMillis()-1900000000L));
             userWeightDao.insert(userWeight);
 
             return null;

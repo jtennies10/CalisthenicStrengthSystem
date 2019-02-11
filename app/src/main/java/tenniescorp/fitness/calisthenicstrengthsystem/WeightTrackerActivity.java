@@ -51,7 +51,10 @@ public class WeightTrackerActivity extends AppCompatActivity {
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
         userWeights = db.userWeightDao().getCurrentUserWeights(userId);
 
-        userWeights.add(calculateFutureUserWeight());
+        if(userWeights.size()>1) {
+            userWeights.add(calculateFutureUserWeight());
+            populateChart();
+        }
 
         recyclerView = findViewById(R.id.recyclerview);
 
@@ -60,7 +63,6 @@ public class WeightTrackerActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        populateChart();
     }
 
     public void promptAddWeightRecord(View view) {
@@ -82,7 +84,9 @@ public class WeightTrackerActivity extends AppCompatActivity {
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
         db.userWeightDao().deleteCurrentUserWeights(userId);
 
-        userWeights = new ArrayList<>();
+        while(userWeights.size() > 0) {
+            userWeights.remove(0);
+        }
 
         final UserWeightListAdapter adapter = new UserWeightListAdapter(getApplicationContext());
         adapter.setUserWeights(userWeights);
@@ -90,6 +94,8 @@ public class WeightTrackerActivity extends AppCompatActivity {
 
         LinearLayout addRecordPrompt = findViewById(R.id.delete_warning);
         addRecordPrompt.setVisibility(View.GONE);
+
+        populateChart();
     }
 
     public void cancelAddWeightRecord(View view) {
@@ -115,7 +121,14 @@ public class WeightTrackerActivity extends AppCompatActivity {
 
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
         db.userWeightDao().insert(newUserWeight);
+
+        if(userWeights.size() > 0) userWeights.remove(userWeights.size()-1);
         userWeights.add(newUserWeight);
+
+        if(userWeights.size() > 1) {
+            userWeights.add(calculateFutureUserWeight());
+            populateChart();
+        }
 
         final UserWeightListAdapter adapter = new UserWeightListAdapter(getApplicationContext());
         adapter.setUserWeights(userWeights);
@@ -131,13 +144,9 @@ public class WeightTrackerActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
-        populateChart();
+
     }
 
-//    private String getDateAsString() {
-//        Date date = new Date();
-//        return  new SimpleDateFormat("MM/dd/yyyy").format(date);
-//    }
 
 
     private void populateChart() {
@@ -179,20 +188,21 @@ public class WeightTrackerActivity extends AppCompatActivity {
         long predictedWeightDate = maxWeightDate + (datesRange / 2);
 
         int minWeightLbsIndex = findMinWeightIndex();
-        int maxWeightLbsIndex = findMaxWeightIndex();
+        int minWeight = userWeights.get(minWeightLbsIndex).getWeightInPounds();
 
-        int weightLbsRange = userWeights.get(minWeightLbsIndex).getWeightInPounds() -
-                userWeights.get(maxWeightLbsIndex).getWeightInPounds();
+        int maxWeightLbsIndex = findMaxWeightIndex();
+        int maxWeight = userWeights.get(maxWeightLbsIndex).getWeightInPounds();
+
+        int weightLbsRange = maxWeight - minWeight;
         if(weightLbsRange < 0) weightLbsRange *= -1;
 
         //todo:predict weight based on range and whether min or max comes first
-
-
         int predictedWeightLbs;
 
+        if(minWeightLbsIndex > maxWeightLbsIndex) predictedWeightLbs = userWeights.get(userWeights.size()-1).getWeightInPounds() - (weightLbsRange/2);
+        else predictedWeightLbs = userWeights.get(userWeights.size()-1).getWeightInPounds() + (weightLbsRange/2);
 
-        //todo:return calculated weight
-        return null;
+        return new UserWeight(userId, predictedWeightLbs, predictedWeightDate);
 
     }
 
