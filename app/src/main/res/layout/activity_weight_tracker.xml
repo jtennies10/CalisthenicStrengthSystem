@@ -71,7 +71,7 @@
                 android:layout_weight="1"
                 style="@style/button_style"
                 android:text="@string/add_record"
-                android:onClick="addNewWeightRecord"/>
+                android:onClick="promptAddWeightRecord"/>
 
             <Button
                 android:id="@+id/weight_tracker_delete_records_button"
@@ -111,7 +111,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/routine_delete_cancel_button"
+                android:id="@+id/user_weight_delete_cancel_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -120,13 +120,66 @@
                 android:onClick="cancelDeleteWeightRecords"/>
 
             <Button
-                android:id="@+id/routine_delete_confirmed_button"
+                android:id="@+id/user_weight_delete_confirmed_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/button_style"
                 android:text="@string/delete"
                 android:onClick="deleteWeightRecords"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/prompt_add_weight_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@color/colorPrimary"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_weight"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp"/>
+
+        <EditText
+            android:id="@+id/new_user_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/weight_in_lbs"
+            android:inputType="number"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/user_weight_add_cancel_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/button_style"
+                android:text="@string/cancel"
+                android:onClick="cancelAddWeightRecord"/>
+
+            <Button
+                android:id="@+id/user_weight_add_confirmed_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/button_style"
+                android:text="@string/add"
+                android:onClick="addWeightRecord"/>
 
 
         </LinearLayout>

@@ -2,6 +2,7 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
@@ -18,4 +19,7 @@ public interface UserWeightDao {
 
     @Query("DELETE FROM user_weight_table WHERE userId=:userId")
     void deleteCurrentUserWeights(long userId);
+
+    @Insert
+    long insert(UserWeight userWeight);
 }

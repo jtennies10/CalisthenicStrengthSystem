@@ -48,10 +48,10 @@ public class UserWeightListAdapter extends RecyclerView.Adapter<UserWeightListAd
         }
     }
 
-//    void setUserWeights(List<UserWeight> userWeights){
-//        userWeightList = userWeights;
-//        notifyDataSetChanged();
-//    }
+    void setUserWeights(List<UserWeight> userWeights){
+        userWeightList = userWeights;
+        notifyDataSetChanged();
+    }
 
     // getItemCount() is called many times, and when it is first called,
     // mWords has not been updated (means initially, it's null, and we can't return null).

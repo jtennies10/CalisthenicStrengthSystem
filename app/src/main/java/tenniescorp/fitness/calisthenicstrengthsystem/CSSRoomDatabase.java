@@ -164,24 +164,12 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                 routineExerciseDao.insert(routineExercise);
                 routineExercise = new RoutineExercise(1, 16);
                 routineExerciseDao.insert(routineExercise);
-//                Log.d("File", " being read now");
-//                File file = new File("ExercisesPlainText");
-//                String absolutePath = file.getAbsolutePath();
-//                try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
-//                    //BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-//                    String exercise;
-//                    while((exercise = bufferedReader.readLine()) != null) {
-//                        String[] exerciseInfo = exercise.split(" - ");
-//                        Log.d(exerciseInfo[0], (", " + exerciseInfo[1]));
-//                        exerciseDao.insert(new Exercise(exerciseInfo[0], exerciseInfo[1]));
-//                    }
-//
-//                } catch(IOException ex) {
-//                    Log.d("Read in", "FAILED");
-//                    ex.printStackTrace();
-//                }
 
-            //}
+
+                UserWeight userWeight = new UserWeight(0, 140, "2/12/2019");
+                userWeightDao.insert(userWeight);
+                userWeight = new UserWeight(0, 145, "2/15/2019");
+                userWeightDao.insert(userWeight);
 
 
 
