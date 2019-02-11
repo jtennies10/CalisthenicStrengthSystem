@@ -14,7 +14,7 @@ public interface UserWeightDao {
     @Query("SELECT * FROM user_weight_table")
     List<UserWeight> getAllUserWeights();
 
-    @Query("SELECT * FROM user_weight_table WHERE userId=:userId")
+    @Query("SELECT * FROM user_weight_table WHERE userId=:userId ORDER BY weightDateAsLong")
     List<UserWeight> getCurrentUserWeights(long userId);
 
     @Query("DELETE FROM user_weight_table WHERE userId=:userId")

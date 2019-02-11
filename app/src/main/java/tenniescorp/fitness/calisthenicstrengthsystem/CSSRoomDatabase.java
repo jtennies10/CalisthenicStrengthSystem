@@ -14,6 +14,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /*The code in the class relies heavily in the open source tutorial
@@ -166,16 +169,18 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                 routineExerciseDao.insert(routineExercise);
 
 
-                UserWeight userWeight = new UserWeight(0, 140, "2/12/2019");
-                userWeightDao.insert(userWeight);
-                userWeight = new UserWeight(0, 145, "2/15/2019");
-                userWeightDao.insert(userWeight);
 
 
-
-            //TODO:Delete this code when moving past login functionality
             User u = new User("jtennies10", "jtennies69@gmail.com", "4thgrade", "1111", 160);
+            u.setUserId(1);
             userDao.insert(u);
+
+            UserWeight userWeight = new UserWeight(1, 145, (Calendar.getInstance().getTimeInMillis()-3000000000L));
+            userWeightDao.insert(userWeight);
+            userWeight = new UserWeight(1, 155, (Calendar.getInstance().getTimeInMillis()-2500000000L));
+            userWeightDao.insert(userWeight);
+            userWeight = new UserWeight(1, 150, (Calendar.getInstance().getTimeInMillis()-1900000000L));
+            userWeightDao.insert(userWeight);
 
             return null;
         }

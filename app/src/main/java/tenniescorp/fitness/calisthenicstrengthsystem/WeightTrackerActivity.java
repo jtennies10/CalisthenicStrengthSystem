@@ -3,6 +3,7 @@ package tenniescorp.fitness.calisthenicstrengthsystem;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -100,7 +102,7 @@ public class WeightTrackerActivity extends AppCompatActivity {
         }
         int weightInPounds = Integer.parseInt(weightView.getText().toString());
 
-        UserWeight newUserWeight = new UserWeight(userId, weightInPounds, getDateAsString());
+        UserWeight newUserWeight = new UserWeight(userId, weightInPounds, new Date().getTime());
 
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
         db.userWeightDao().insert(newUserWeight);
@@ -121,10 +123,10 @@ public class WeightTrackerActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    private String getDateAsString() {
-        Date date = new Date();
-        return  new SimpleDateFormat("MM/dd/yyyy").format(date);
-    }
+//    private String getDateAsString() {
+//        Date date = new Date();
+//        return  new SimpleDateFormat("MM/dd/yyyy").format(date);
+//    }
 
 
     private void populateChart() {
@@ -133,22 +135,37 @@ public class WeightTrackerActivity extends AppCompatActivity {
         Knowledge base for creating the chart is from the tutorial found at https://www.numetriclabz.com/android-line-chart-using-mpandroidchart-tutorial/
          */
         LineChart lineChart = findViewById(R.id.user_weight_chart);
+        lineChart.getAxisRight().setEnabled(false);
+        lineChart.getDescription().setEnabled(false);
 
-        ArrayList<Entry> entries = new ArrayList<Entry>();
-        entries.add(new Entry(4f, 0));
-        entries.add(new Entry(8f, 2));
-        entries.add(new Entry(6f, 1));
+        //entries need to go in order
+        ArrayList<Entry> userWeightEntries = new ArrayList<>();
+        for(int i = 0; i < userWeights.size(); i++) {
+            UserWeight current = userWeights.get(i);
+            userWeightEntries.add(new Entry(current.getWeightDateAsLong(), current.getWeightInPounds()));
+        }
 
-        LineDataSet dataSet = new LineDataSet(entries, "# of Calls");
 
-        ArrayList<String> labels = new ArrayList<>();
-        labels.add("January");
-        labels.add("February");
-        labels.add("March");
-        labels.add("April");
+
+        LineDataSet dataSet = new LineDataSet(userWeightEntries, "User Weights");
+        dataSet.setColor(Color.RED);
+        dataSet.setHighLightColor(Color.RED);
+        //dataSet.setDrawFilled(true);
+
+
+//        ArrayList<String> labels = new ArrayList<>();
+//        labels.add("January");
+//        labels.add("February");
+//        labels.add("March");
+//        labels.add("April");
 
         LineData data = new LineData(dataSet);
         lineChart.setData(data);
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
 
     }
 }

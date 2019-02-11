@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class UserWeightListAdapter extends RecyclerView.Adapter<UserWeightListAdapter.UserWeightViewHolder>{
@@ -41,7 +43,7 @@ public class UserWeightListAdapter extends RecyclerView.Adapter<UserWeightListAd
             UserWeight current = userWeightList.get(position);
             String userWeight = current.getWeightInPounds() + "lbs";
             holder.userWeightTextView.setText(userWeight);
-            holder.dateTextView.setText(current.getWeightDateAsString());
+            holder.dateTextView.setText(getDateAsString(current));
         } else {
             // Covers the case of data not being ready yet.
             holder.dateTextView.setText("No Records");
@@ -60,6 +62,11 @@ public class UserWeightListAdapter extends RecyclerView.Adapter<UserWeightListAd
         if (userWeightList != null)
             return userWeightList.size();
         else return 0;
+    }
+
+    private String getDateAsString(UserWeight userWeight) {
+        Date date = new Date(userWeight.getWeightDateAsLong());
+        return  new SimpleDateFormat("MM/dd/yyyy").format(date);
     }
 
 }

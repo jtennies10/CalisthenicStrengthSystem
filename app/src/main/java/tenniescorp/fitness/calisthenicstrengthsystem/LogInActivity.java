@@ -104,7 +104,7 @@ public class LogInActivity extends AppCompatActivity {
             return null;
         }
 
-        return new User(emailUsername, emailUsername, password, null, -1);
+        return new User(emailUsername, emailUsername, password, "1/1/97", -1);
     }
 
 
