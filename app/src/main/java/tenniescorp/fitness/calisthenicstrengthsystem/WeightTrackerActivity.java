@@ -111,6 +111,8 @@ public class WeightTrackerActivity extends AppCompatActivity {
         addRecordPrompt.setVisibility(View.GONE);
     }
 
+
+    //TODO:fix the date format to just be MM/DD/YYYY
     private String getDateAsString() {
         Date date = new Date();
         String dateAsString = date.toString();
