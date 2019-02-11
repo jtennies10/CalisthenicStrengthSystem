@@ -1,5 +1,6 @@
 package tenniescorp.fitness.calisthenicstrengthsystem;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -8,10 +9,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,10 +54,7 @@ public class WeightTrackerActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-//        exerciseViewModel = ViewModelProviders.of(this).get(ExerciseViewModel.class);
-//
-//        exerciseViewModel.getAllExercises().observe(this, exercises -> adapter.setExercises(exercises));
+        populateChart();
     }
 
     public void promptAddWeightRecord(View view) {
@@ -109,14 +114,41 @@ public class WeightTrackerActivity extends AppCompatActivity {
 
         LinearLayout addRecordPrompt = findViewById(R.id.prompt_add_weight_record);
         addRecordPrompt.setVisibility(View.GONE);
+
+
+        //Hide keyboard code found at https://stackoverflow.com/questions/4165414/how-to-hide-soft-keyboard-on-android-after-clicking-outside-edittext
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private String getDateAsString() {
+        Date date = new Date();
+        return  new SimpleDateFormat("MM/dd/yyyy").format(date);
     }
 
 
-    //TODO:fix the date format to just be MM/DD/YYYY
-    private String getDateAsString() {
-        Date date = new Date();
-        String dateAsString = date.toString();
-        //dateAsString += date.getDate();
-        return dateAsString;
+    private void populateChart() {
+        /*
+        This chart is built off the open source MpAndroidChart library found here: https://github.com/PhilJay/MPAndroidChart
+        Knowledge base for creating the chart is from the tutorial found at https://www.numetriclabz.com/android-line-chart-using-mpandroidchart-tutorial/
+         */
+        LineChart lineChart = findViewById(R.id.user_weight_chart);
+
+        ArrayList<Entry> entries = new ArrayList<Entry>();
+        entries.add(new Entry(4f, 0));
+        entries.add(new Entry(8f, 2));
+        entries.add(new Entry(6f, 1));
+
+        LineDataSet dataSet = new LineDataSet(entries, "# of Calls");
+
+        ArrayList<String> labels = new ArrayList<>();
+        labels.add("January");
+        labels.add("February");
+        labels.add("March");
+        labels.add("April");
+
+        LineData data = new LineData(dataSet);
+        lineChart.setData(data);
+
     }
 }
