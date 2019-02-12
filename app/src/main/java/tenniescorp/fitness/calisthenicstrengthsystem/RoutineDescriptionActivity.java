@@ -23,10 +23,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/*
+Defines the activity for describing a routine that gives user a display of the routine
+information including its exercises and options to modify the routine as they wish
+ */
 public class RoutineDescriptionActivity extends AppCompatActivity {
     public static final int EDIT_EXERCISES_ROUTINE_DESCRIPTION_ACTIVITY_CODE = 2;
     public static final int EDIT_ROUTINE_ROUTINE_DESCRIPTION_ACTIVITY_CODE = 3;
 
+    //member variables
     Routine currentRoutine;
     ArrayList<Exercise> routineExercises;
     RecyclerView recyclerView;
@@ -38,6 +43,7 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_description);
 
+        //set activity toolbar
         Toolbar toolbar = findViewById(R.id.routine_description_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -45,24 +51,27 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         TextView routineName = findViewById(R.id.routine_description_name);
         TextView routineDescription = findViewById(R.id.routine_description_description);
 
-        //get recycler view and populate using query to get all exercises with the correct workout_id
+        //get recycler view and populate routineExercises using query to get all exercises with the correct workout_id
         recyclerView = findViewById(R.id.recyclerview);
-
-        currentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
-        Log.d("Routine name, id", currentRoutine.getRoutineName() + " " + currentRoutine.getRoutineId());
-        routineName.setText(currentRoutine.getRoutineName());
-        routineDescription.setText(currentRoutine.getRoutineDescription());
-
-        if(currentRoutine.isFavorited()) {
-            ImageView favoriteImage = findViewById(R.id.routine_description_favorite_star);
-            favoriteImage.setImageResource(R.drawable.ic_star_black_24dp);
-        }
 
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(this);
         routineExercises = new ArrayList<>(
                 db.routineExerciseDao().getSpecificRoutineExercises(currentRoutine.getRoutineId()));
 
+        //populate the routine name and description using the Routine object passed
+        //with the intent
+        currentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
+        Log.d("Routine name, id", currentRoutine.getRoutineName() + " " + currentRoutine.getRoutineId());
+        routineName.setText(currentRoutine.getRoutineName());
+        routineDescription.setText(currentRoutine.getRoutineDescription());
 
+        //if the routine is favorited, set the toolbar star to be filled in
+        if(currentRoutine.isFavorited()) {
+            ImageView favoriteImage = findViewById(R.id.routine_description_favorite_star);
+            favoriteImage.setImageResource(R.drawable.ic_star_black_24dp);
+        }
+
+        //create a click listener for starting the ExerciseDescription activity
         clickListener = (view, position) -> {
             // Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RoutineDescriptionActivity.this, ExerciseDescriptionActivity.class);
@@ -81,6 +90,7 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     }
 
+    //when the activity is destroyed be sure to update the routine in the database
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -88,6 +98,9 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         db.routineDao().update(currentRoutine);
     }
 
+    /*
+    Toggles the routine options represented by the floating action buttons
+     */
     public void toggleRoutineOptions(View v) {
         Button deleteRoutineBtn = findViewById(R.id.routine_delete_button);
         Button editExerciseBtn = findViewById(R.id.routine_edit_exercises_button);
@@ -103,6 +116,9 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    Toggles the routine favorite option in the toolbar
+     */
     public void toggleRoutineFavorite(View v) {
         ImageView star = findViewById(R.id.routine_description_favorite_star);
 
@@ -113,15 +129,20 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
             star.setImageResource(R.drawable.ic_star_black_24dp);
             currentRoutine.setFavorited(true);
         }
-//        preferencesEditor.apply();
     }
 
+    /*
+    Brings up the delete routine prompt to make sure the user wants to delete the routine
+     */
     public void promptDeleteRoutine(View view) {
         LinearLayout deleteWarning = findViewById(R.id.delete_warning);
         deleteWarning.setVisibility(View.VISIBLE);
 
     }
 
+    /*
+    Deletes the current routine from the database
+     */
     public void deleteRoutine(View view) {
         //delete the routine
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
@@ -132,12 +153,18 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
+    Hides the delete routine prompt
+     */
     public void cancelDeleteRoutine(View view) {
         //close the popup
         LinearLayout deleteWarning = findViewById(R.id.delete_warning);
         deleteWarning.setVisibility(View.GONE);
     }
 
+    /*
+    Starts the ExerciseListActivity to allow the user to change the routine exercises.
+     */
     public void editExercises(View view) {
         //start exercise activity, sending current exercise list with it
         Intent intent = new Intent(getApplicationContext(), ExerciseListActivity.class);
@@ -145,6 +172,10 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         startActivityForResult(intent, EDIT_EXERCISES_ROUTINE_DESCRIPTION_ACTIVITY_CODE);
     }
 
+    /*
+    Handles returning intents from editing routine description and for editing exercises.
+    Sets the updated values for the routine in the Activity.
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
@@ -187,6 +218,10 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    Starts the NewRoutineActivity, passing along the routine and exercises so they can be modified
+    accordingly.
+     */
     public void editRoutineInfo(View view) {
         //start new routine activity with current routine info
         Intent intent = new Intent(this, NewRoutineActivity.class);

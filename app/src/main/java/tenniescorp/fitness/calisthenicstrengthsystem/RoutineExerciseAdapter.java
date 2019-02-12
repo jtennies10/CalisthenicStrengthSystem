@@ -9,11 +9,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/*
+Defines an adapter for the RoutineExercises that populates a recycler view.
+ */
 public class RoutineExerciseAdapter extends RecyclerView.Adapter<RoutineExerciseAdapter.RoutineExerciseViewHolder> {
-    List<Exercise> routineExercises;
-    RecyclerViewClickListener listListener;
-    Context context;
+    private List<Exercise> routineExercises;
+    private RecyclerViewClickListener listListener;
+    private Context context;
 
+    /*
+    Inner class defining the view holder for the adapter.
+     */
     class RoutineExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView exerciseItemView;
         RecyclerViewClickListener listListener;
@@ -37,7 +43,10 @@ public class RoutineExerciseAdapter extends RecyclerView.Adapter<RoutineExercise
 
     }
 
-
+    /*
+    Inflates the view when called upon view holder creation
+    @return a RoutineExerciseViewHolder
+     */
     @Override
     public RoutineExerciseAdapter.RoutineExerciseViewHolder onCreateViewHolder(ViewGroup parent,
                                                                                int viewType) {
@@ -47,6 +56,9 @@ public class RoutineExerciseAdapter extends RecyclerView.Adapter<RoutineExercise
     }
 
 
+    /*
+     Sets the text for each exercise view in the view holder
+     */
     @Override
     public void onBindViewHolder(RoutineExerciseViewHolder holder, int position) {
         holder.exerciseItemView.setText(routineExercises.get(position).getExerciseName());
@@ -54,6 +66,9 @@ public class RoutineExerciseAdapter extends RecyclerView.Adapter<RoutineExercise
     }
 
 
+    /*
+    Returns the number of exercises in routineExercise or 0 if routineExercises is null
+     */
     @Override
     public int getItemCount() {
         return (routineExercises == null) ? 0 : routineExercises.size();

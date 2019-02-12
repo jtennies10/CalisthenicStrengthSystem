@@ -6,6 +6,9 @@ import android.arch.lifecycle.LiveData;
 
 import java.util.List;
 
+/*
+Defines a view model for routines using the RoutineRepository and the routines in the database.
+ */
 public class RoutineViewModel extends AndroidViewModel {
 
     private RoutineRepository repository;
@@ -21,6 +24,9 @@ public class RoutineViewModel extends AndroidViewModel {
         return allRoutines;
     }
 
+    /*
+    Inserts the passed routine into the repository
+     */
     public void insert(Routine routine) {
         repository.insert(routine);
     }

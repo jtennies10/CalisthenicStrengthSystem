@@ -1,12 +1,14 @@
 package tenniescorp.fitness.calisthenicstrengthsystem;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+/*
+Defines a DAO for interacting with the user_table to insert, delete, and retrieve Users.
+ */
 @Dao
 public interface UserDao {
 

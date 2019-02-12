@@ -13,8 +13,14 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
+/*
+Defines the adapter class used to handle lists of Routines.
+ */
 public class RoutineListAdapter extends RecyclerView.Adapter<RoutineListAdapter.RoutineViewHolder> {
 
+    /*
+    Inner class defining the view holder for Routines
+     */
     class RoutineViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView routineItemView;
@@ -37,17 +43,26 @@ public class RoutineListAdapter extends RecyclerView.Adapter<RoutineListAdapter.
     private List<Routine> routineList; // Cached copy of words
     private RecyclerViewClickListener listListener;
 
+    /*
+    Constructor that assigns the inflater a LayoutInflater based on the passed in Context
+     */
     RoutineListAdapter(Context context, RecyclerViewClickListener listListener) {
         inflater = LayoutInflater.from(context);
         this.listListener = listListener;
     }
 
+    /*
+    Inflates the itemView when the ViewHolder is created
+     */
     @Override
     public RoutineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.recyclerview_item, parent, false);
         return new RoutineViewHolder(itemView, listListener);
     }
 
+    /*
+    Populates the items in the list with the routine names if the routineList is not null
+     */
     @Override
     public void onBindViewHolder(@NonNull RoutineViewHolder holder, int position) {
         if (routineList != null) {
@@ -59,13 +74,17 @@ public class RoutineListAdapter extends RecyclerView.Adapter<RoutineListAdapter.
         }
     }
 
+    /*
+    Sets the routines in routineList and updates the adapter
+     */
     void setRoutines(List<Routine> routines){
         routineList = routines;
         notifyDataSetChanged();
     }
 
-    // getItemCount() is called many times, and when it is first called,
-    // routineList has not been updated (means initially, it's null, and we can't return null).
+    /*
+    Returns the number of items in routineList or 0 if routineList is null.
+     */
     @Override
     public int getItemCount() {
         if (routineList != null)

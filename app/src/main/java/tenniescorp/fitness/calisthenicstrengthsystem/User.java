@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 
 import java.util.Date;
 
+/*
+Defines a User object that is stored in the database within the user_table
+ */
 @Entity(tableName="user_table", indices = {@Index(value = "userName", unique = true), @Index(value = "email", unique = true)})
 public class User {
 
@@ -30,7 +33,6 @@ public class User {
 
 
     public User(String userName,@NonNull String email, @NonNull String password,@NonNull String dateOfBirthAsString, int heightInInches) {
-        this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.password = password;
@@ -71,23 +73,4 @@ public class User {
         this.userId = userId;
     }
 
-    public void setUserName(@NonNull String userName) {
-        this.userName = userName;
-    }
-
-    public void setEmail(@NonNull String email) {
-        this.email = email;
-    }
-
-    public void setPassword(@NonNull String password) {
-        this.password = password;
-    }
-
-    public void setDateOfBirthAsString(@NonNull String dateOfBirthAsString) {
-        this.dateOfBirthAsString = dateOfBirthAsString;
-    }
-
-    public void setHeightInInches(int heightInInches) {
-        this.heightInInches = heightInInches;
-    }
 }

@@ -20,7 +20,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-
+/*
+Defines the RoutineListActivity, which is the opening Activity once a user is logged in.
+In this activity the user can view all routines with their favorited routines listed first,
+as well as can select to create a new routine or click on a routine to see it in detail.
+ */
 public class RoutineListActivity extends AppCompatActivity {
 
     public static final int NEW_ROUTINE_ACTIVITY_REQUEST_CODE = 1;
@@ -32,6 +36,7 @@ public class RoutineListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_list);
 
+        //set the activity toolbar
         Toolbar toolbar = findViewById(R.id.routine_list_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -39,8 +44,8 @@ public class RoutineListActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
+        //create a click listener to start the RoutineDescriptionActivity
         RecyclerViewClickListener clickListener = (view, position) -> {
-           // Toast.makeText(view.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RoutineListActivity.this, RoutineDescriptionActivity.class);
 
             //send the selected Routine with the intent
@@ -50,16 +55,17 @@ public class RoutineListActivity extends AppCompatActivity {
             startActivity(intent);
         };
 
-
+        //create the RoutineListAdapter and attach it to the recycler view
         final RoutineListAdapter adapter = new RoutineListAdapter(this, clickListener);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //assign the routineViewModel and set it to observe the adapter
         routineViewModel = ViewModelProviders.of(this).get(RoutineViewModel.class);
 
         routineViewModel.getAllRoutines().observe(this, routines -> adapter.setRoutines(routines));
 
-
+        //get the newRoutineButton and give it a click listener that starts the NewRoutineActivity
         FloatingActionButton newRoutineButton = findViewById(R.id.routine_list_add_button);
         newRoutineButton.setOnClickListener(v -> {
             Intent intent = new Intent(RoutineListActivity.this, NewRoutineActivity.class);
@@ -67,25 +73,27 @@ public class RoutineListActivity extends AppCompatActivity {
 
         });
 
-        Button weightTrackerBtn = findViewById(R.id.weight_tracker_button);
-        Button signOutBtn = findViewById(R.id.sign_out_button);
-
-        weightTrackerBtn.setVisibility(View.GONE);
-        signOutBtn.setVisibility(View.GONE);
-
     }
 
+    /*
+    Handles returning intents from the NewRoutineActivity by adding the routine and it's
+    associated exercises to their appropriate tables in the database if RESULT_OK is the code returned
+    with the intent
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //if the returning intent is from NewRoutineActivity, get the routine and routineExercises\
+        //and insert them into the database
         if(requestCode == NEW_ROUTINE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Routine routine = (Routine) data.getSerializableExtra("Routine");
             List<Exercise> routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
 
 
             CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
-            long routineId = db.routineDao().insert(routine);
-            //db.routineExerciseDao().insert(new RoutineExercise(routine.getRoutineId(), routineExercises.get(0).getExerciseId()));
+            long routineId = db.routineDao().insert(routine); //gets the routineId of the newly inserted routine
+
+            //insert the routineExercises if there are any
             if(routineExercises != null) {
                 for (int i = 0; i < routineExercises.size(); i++) {
                     RoutineExercise routineExercise = new RoutineExercise(routineId, routineExercises.get(i).getExerciseId());
@@ -102,6 +110,9 @@ public class RoutineListActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    Toggles the options that drop down from the toolbar
+     */
     public void toggleMoreOptions(View view) {
         Button weightTrackerBtn = findViewById(R.id.weight_tracker_button);
         Button signOutBtn = findViewById(R.id.sign_out_button);
@@ -121,6 +132,9 @@ public class RoutineListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
+    Signs the user out and deletes the user information from SharedPreferences
+     */
     public void signOut(View view) {
         SharedPreferences preferences = getSharedPreferences("UserPreferences", 0);
         SharedPreferences.Editor preferencesEditor = preferences.edit();

@@ -6,11 +6,20 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
+/*
+Defines a repository that holds the routines in the database in faster accessed memory.
+
+Code adapted from
+https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#10
+ */
 public class RoutineRepository {
 
     private RoutineDao routineDao;
     private LiveData<List<Routine>> allRoutines;
 
+    /*
+    Constructors that gets the routines currently in the database
+     */
     RoutineRepository(Application application) {
         CSSRoomDatabase db = CSSRoomDatabase.getDatabase(application);
         routineDao = db.routineDao();
@@ -21,10 +30,16 @@ public class RoutineRepository {
         return allRoutines;
     }
 
+    /*
+    Used as an overlay for inserting a routine into the database
+     */
     public void insert(Routine routine) {
          new insertAsyncTask(routineDao).execute(routine);
     }
 
+    /*
+    Defines an inner class for adding routines to the database asynchronously.
+     */
     private static class insertAsyncTask extends AsyncTask<Routine, Void, Void> {
         private RoutineDao asyncTaskDao;
 

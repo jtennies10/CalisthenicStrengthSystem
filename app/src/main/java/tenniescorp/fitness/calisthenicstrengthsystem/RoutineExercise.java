@@ -6,12 +6,17 @@ import android.arch.persistence.room.PrimaryKey;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
+/*
+Defines a RoutineExercise object which serves as a joining table for routine_table and exercise_table
+in the database.
+ */
 @Entity(tableName="routine_exercise_table")
 public class RoutineExercise {
 
     @PrimaryKey(autoGenerate = true)
     private long routineExerciseId;
 
+    //when a routine is deleted, all corresponding RoutineExercise records are deleted
     @ForeignKey(entity = Routine.class, parentColumns = "routineId", childColumns = "routineId",  onDelete = CASCADE)
     private long routineId;
 
