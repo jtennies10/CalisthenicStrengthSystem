@@ -17,6 +17,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Defines the activity for listing all of the exercises and has the ability to start NewExerciseActivity
+ */
 public class ExerciseListActivity extends AppCompatActivity {
 
     public static final int NEW_EXERCISE_ACTIVITY_REQUEST_CODE = 1;
@@ -29,26 +32,26 @@ public class ExerciseListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_list);
 
+        //set the activity toolbar
         Toolbar toolbar = findViewById(R.id.exercise_list_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        //retrieve the routine passed with the starting intent
         parentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-//        if(recyclerView == null) {
-//            Log.d("NUll", "NULL");
-//        }
 
+        //create a clickListener that toggles whether the given exercise is selected or not
         RecyclerViewClickListener clickListener = (view, position) -> {
 
             Exercise selectedExercise = exerciseViewModel.getAllExercises().getValue().get(position);
             if(!selectedExercise.isSelected()) selectedExercise.setSelected(true);
             else selectedExercise.setSelected(false);
-            //Toast.makeText(view.getContext(), exerciseViewModel.getAllExercises().getValue().get(position).isSelected() + " ", Toast.LENGTH_SHORT).show();
 
         };
 
+        //create a longClickListener that opens an exercise's description activity
         RecyclerViewLongClickListener longClickListener = (view, position) -> {
             Intent intent = new Intent(ExerciseListActivity.this, ExerciseDescriptionActivity.class);
 
@@ -59,14 +62,17 @@ public class ExerciseListActivity extends AppCompatActivity {
             startActivity(intent);
         };
 
+        //create the list adapter with the click listeners and assign it to the recyclerView
         final ExerciseListAdapter adapter = new ExerciseListAdapter(this, clickListener, longClickListener);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //set the exerciseViewModel and have it observe the Exercise list
         exerciseViewModel = ViewModelProviders.of(this).get(ExerciseViewModel.class);
 
         exerciseViewModel.getAllExercises().observe(this, exercises -> adapter.setExercises(exercises));
 
+        //create a click listener for the add button that will start NewExerciseActivity
         FloatingActionButton newExerciseButton = findViewById(R.id.exercise_list_add_button);
         newExerciseButton.setOnClickListener(v -> {
             Intent intent = new Intent(ExerciseListActivity.this, NewExerciseActivity.class);
@@ -74,6 +80,8 @@ public class ExerciseListActivity extends AppCompatActivity {
 
         });
 
+        //create a click listener for the save button that sends the selected exercises with an intent
+        //that returns to the activity's caller
         FloatingActionButton saveExercisesButton = findViewById(R.id.exercise_list_save_button);
         saveExercisesButton.setOnClickListener(v -> {
 
@@ -99,6 +107,10 @@ public class ExerciseListActivity extends AppCompatActivity {
 
     }
 
+    /*
+    Manages the return of the NewExerciseActivity and inserts the exercise into the database if
+    criteria is met
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == NEW_EXERCISE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {

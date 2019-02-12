@@ -6,6 +6,9 @@ import android.arch.lifecycle.LiveData;
 
 import java.util.List;
 
+/*
+Defines a view model for exercises using the ExerciseRepository and the exercises in the database.
+ */
 public class ExerciseViewModel extends AndroidViewModel {
 
     private ExerciseRepository repository;
@@ -21,6 +24,9 @@ public class ExerciseViewModel extends AndroidViewModel {
         return allExercises;
     }
 
+    /*
+    Inserts the passed exercise into the repository
+     */
     public void insert(Exercise exercise) {
         repository.insert(exercise);
     }

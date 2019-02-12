@@ -10,14 +10,29 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/*
+Defines a custom adapter for the exercise list that extends RecyclerView.Adapter
+
+Code adapted from
+https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#10
+ */
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder>{
 
+    /*
+    Defines an inner class for the ExerciseViewHolder
+     */
     class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+
+        //member variables for the check mark, textview, and click listeners
         private final TextView exerciseItemView;
         private final ImageView exerciseCheckedView;
         private RecyclerViewClickListener listListener;
         private RecyclerViewLongClickListener longListListener;
 
+        /*
+        Private constructor that assigns the passed arguments to the member variables and attaches the
+        click listeners
+         */
         private ExerciseViewHolder(View itemView, RecyclerViewClickListener listListener,
                                    RecyclerViewLongClickListener longListListener) {
             super(itemView);
@@ -30,12 +45,20 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
         }
 
+        /*
+        Defines the action taken on a click event, in which the listListener's onClick method is
+        called with the adapter position
+         */
         @Override
         public void onClick(View view) {
             listListener.onClick(view, getAdapterPosition());
             notifyDataSetChanged();
         }
 
+        /*
+        Defines the action taken on a click event, in which the longListListener's onLongClick method is
+        called with the adapter position
+         */
         @Override
         public boolean onLongClick(View view) {
             longListListener.onClick(view, getAdapterPosition());
@@ -48,6 +71,9 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     private RecyclerViewClickListener listListener;
     private RecyclerViewLongClickListener longListListener;
 
+    /*
+    Constructor the inflates the view and assigns the click listener arguments
+     */
     ExerciseListAdapter(Context context, RecyclerViewClickListener listListener,
                         RecyclerViewLongClickListener longListListener) {
         inflater = LayoutInflater.from(context);
@@ -55,12 +81,19 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         this.longListListener = longListListener;
     }
 
+    /*
+    Called upon view holder creation, inflates the list and instantiates the view holder
+    @return the view holder
+     */
     @Override
     public ExerciseListAdapter.ExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.exercise_recyclerview_item, parent, false);
         return new ExerciseListAdapter.ExerciseViewHolder(itemView, listListener, longListListener);
     }
 
+    /*
+    Called to populate each item in the list, sets each items TextView to the current Exercise's name
+     */
     @Override
     public void onBindViewHolder(ExerciseListAdapter.ExerciseViewHolder holder, int position) {
         if (exerciseList != null) {
@@ -74,22 +107,26 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
+    /*
+    Used to update the exercises in the exerciseList
+     */
     void setExercises(List<Exercise> exercises){
         exerciseList = exercises;
         notifyDataSetChanged();
     }
 
-    // getItemCount() is called many times, and when it is first called,
-    // mWords has not been updated (means initially, it's null, and we can't return null).
+    /*
+    Returns the item count for exerciseList or zero if the list is null
+     */
     @Override
     public int getItemCount() {
         if (exerciseList != null)
             return exerciseList.size();
         else return 0;
     }
-
-    public void changeItemState(int position) {
-        if(exerciseList.get(position).isSelected()) exerciseList.get(position).setSelected(false);
-        else exerciseList.get(position).setSelected(true);
-    }
+//
+//    public void changeItemState(int position) {
+//        if(exerciseList.get(position).isSelected()) exerciseList.get(position).setSelected(false);
+//        else exerciseList.get(position).setSelected(true);
+//    }
 }

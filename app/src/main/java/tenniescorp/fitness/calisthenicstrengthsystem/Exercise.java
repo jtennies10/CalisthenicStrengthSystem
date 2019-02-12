@@ -7,9 +7,13 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
+/*
+Defines and exercise object to be used in the database.
+ */
 @Entity(tableName="exercise_table")
 public class Exercise implements Serializable {
 
+    //autoGenerate the primary key for each exercise
     @PrimaryKey(autoGenerate = true)
     private long exerciseId;
 
@@ -48,13 +52,6 @@ public class Exercise implements Serializable {
         this.exerciseId = exerciseId;
     }
 
-    public void setExerciseName(@NonNull String exerciseName) {
-        this.exerciseName = exerciseName;
-    }
-
-    public void setExerciseDescription(String exerciseDescription) {
-        this.exerciseDescription = exerciseDescription;
-    }
 
     public void setSelected(boolean selected) {
         this.selected = selected;

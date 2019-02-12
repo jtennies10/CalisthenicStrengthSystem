@@ -19,14 +19,19 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-/*The code in the class relies heavily in the open source tutorial
-found here https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#6*/
+/*
+Defines the database used in the program. The database is created using the Room overlay for SQLite.
+
+The code in the class relies heavily in the open source tutorial
+found here https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#6
+*/
 @Database(entities =
         {User.class, Routine.class, RoutineExercise.class,
                 UserRoutine.class, UserWeight.class, Exercise.class},
         version = 1)
 public abstract class CSSRoomDatabase extends RoomDatabase {
 
+    //declare the abstract methods to get the database DAO's
     public abstract UserDao userDao();
     public abstract RoutineDao routineDao();
     public abstract ExerciseDao exerciseDao();
@@ -49,6 +54,9 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    /*
+    Defines the callback methods to populate the database.
+     */
     private static RoomDatabase.Callback roomDatabaseCallback =
             new RoomDatabase.Callback() {
 
@@ -64,6 +72,9 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
                 }
             };
 
+    /*
+    Defines an AsyncTask subclass for populating the database.
+     */
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final RoutineDao routineDao;
@@ -72,6 +83,9 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
         private final RoutineExerciseDao routineExerciseDao;
         private final UserWeightDao userWeightDao;
 
+        /*
+        Class constructor
+         */
         PopulateDbAsync(CSSRoomDatabase db) {
             routineDao = db.routineDao();
             userDao = db.userDao();
@@ -80,6 +94,9 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
             userWeightDao = db.userWeightDao();
         }
 
+        /*
+        Method called on database creation to populate the database tables.
+         */
         @Override
         protected Void doInBackground(final Void... params) {
             //if(routineDao.getAllRoutines(). == 0) {

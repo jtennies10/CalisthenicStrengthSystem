@@ -6,6 +6,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+/*
+Simple class that defines an activity for describing an exercise based on what exercise
+is passed with the calling intent
+ */
 public class ExerciseDescriptionActivity extends AppCompatActivity {
 
     @Override
