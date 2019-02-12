@@ -8,6 +8,9 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
+/*
+Defines the DAO for working with the routine_table
+ */
 @Dao
 public interface RoutineDao {
 
@@ -16,9 +19,6 @@ public interface RoutineDao {
 
     @Query("SELECT * FROM routine_table ORDER BY favorited DESC")
     LiveData<List<Routine>> getAllRoutines();
-
-    @Query("DELETE FROM routine_table")
-    void deleteAll();
 
     @Query("DELETE FROM routine_table WHERE routineId = :routineId")
     void deleteSpecificRoutine(long routineId);

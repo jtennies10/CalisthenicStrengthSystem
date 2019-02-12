@@ -7,9 +7,13 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
+/*
+Defines a Routine object which is stored in the database table named routine_table
+ */
 @Entity(tableName="routine_table")
 public class Routine implements Serializable {
 
+    //autoGenerate the primary key
     @PrimaryKey(autoGenerate = true)
     private long routineId;
 
@@ -18,6 +22,7 @@ public class Routine implements Serializable {
 
     private String routineDescription;
 
+    //denotes whether a given routine is favorited or not
     private boolean favorited = false;
 
 

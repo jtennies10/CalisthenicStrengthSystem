@@ -178,20 +178,6 @@
         android:textColorHint="@color/colorAccent"
         android:textColor="@color/colorAccent"/>
 
-    <EditText
-        android:id="@+id/register_weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/register_weight"
-        android:inputType="number"
-        android:textColorHint="@color/colorAccent"
-        android:textColor="@color/colorAccent"/>
-
-
-
-
-
-
 
     <Button
         android:id="@+id/register_register_button"

@@ -9,11 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/*
+Defines the activity that allows users to create new exercises that are stored in the database.
+ */
 public class NewExerciseActivity extends AppCompatActivity {
 
-
-    public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
-
+    //member variable
     private EditText newExerciseName;
     private EditText newExerciseDescription;
 
@@ -23,6 +24,7 @@ public class NewExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_exercise);
 
+        //set the activity toolbar
         Toolbar toolbar = findViewById(R.id.new_exercise_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -30,6 +32,8 @@ public class NewExerciseActivity extends AppCompatActivity {
         newExerciseName = findViewById(R.id.new_exercise_name);
         newExerciseDescription = findViewById(R.id.new_exercise_description);
 
+        //get the save button and attach a click listener
+        //that gets the exercise data and finishes the activity when clicked
         final Button save_button = findViewById(R.id.new_exercise_save_button);
         save_button.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
@@ -44,13 +48,6 @@ public class NewExerciseActivity extends AppCompatActivity {
             }
             finish();
 
-//            Exercise exercise = new Exercise(
-//                    newExerciseName.getText().toString(), newExerciseDescription.getText().toString());
-//            CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
-//            db.exerciseDao().insert(exercise);
-//
-//            Intent intent = new Intent(this, ExerciseListActivity.class);
-//            startActivity(intent);
         });
     }
 
