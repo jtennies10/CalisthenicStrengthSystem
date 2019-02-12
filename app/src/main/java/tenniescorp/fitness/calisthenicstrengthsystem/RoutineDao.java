@@ -23,6 +23,6 @@ public interface RoutineDao {
     @Query("DELETE FROM routine_table WHERE routineId = :routineId")
     void deleteSpecificRoutine(long routineId);
 
-    @Update
-    void update(Routine routine);
+    @Query("UPDATE routine_table SET routineDescription=:routineDescription, routineName=:routineName WHERE routineId=:routineId")
+    void update(long routineId, String routineName, String routineDescription);
 }

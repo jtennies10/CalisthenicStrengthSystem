@@ -90,14 +90,6 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     }
 
-    //when the activity is destroyed be sure to update the routine in the database
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
-        db.routineDao().update(currentRoutine);
-    }
-
     /*
     Toggles the routine options represented by the floating action buttons
      */
@@ -179,16 +171,16 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
-                Routine routine = (Routine) data.getSerializableExtra("Routine");
+                Routine currentRoutine = (Routine) data.getSerializableExtra("Routine");
 
                 routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
                 //delete the current routineExercises
                 CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
-                db.routineExerciseDao().deleteRoutineExercises(routine.getRoutineId());
+                db.routineExerciseDao().deleteRoutineExercises(currentRoutine.getRoutineId());
 
                 //insert the new routineExercise records
                 for(int i = 0; i < routineExercises.size(); i++) {
-                    RoutineExercise routineExercise = new RoutineExercise(routine.getRoutineId(), routineExercises.get(i).getExerciseId());
+                    RoutineExercise routineExercise = new RoutineExercise(currentRoutine.getRoutineId(), routineExercises.get(i).getExerciseId());
                     db.routineExerciseDao().insert(routineExercise);
                 }
 
@@ -197,17 +189,18 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
                 if(requestCode == EDIT_ROUTINE_ROUTINE_DESCRIPTION_ACTIVITY_CODE) {
                     Log.d("ROUTINE", "TRUE");
-                    db.routineDao().update(routine);
+                    db.routineDao().update(currentRoutine.getRoutineId(),
+                            currentRoutine.getRoutineName(), currentRoutine.getRoutineDescription());
 
                     //set the update routine name and description
                     TextView routineName = findViewById(R.id.routine_description_name);
                     TextView routineDescription = findViewById(R.id.routine_description_description);
 
-                    Log.d("ROUTINE NAME", routine.getRoutineName());
-                    Log.d("ROUTINE DESC", routine.getRoutineDescription());
+//                    Log.d("ROUTINE NAME", currentRoutine.getRoutineName());
+//                    Log.d("ROUTINE DESC", currentRoutine.getRoutineDescription());
 
-                    routineName.setText(routine.getRoutineName());
-                    routineDescription.setText(routine.getRoutineDescription());
+                    routineName.setText(currentRoutine.getRoutineName());
+                    routineDescription.setText(currentRoutine.getRoutineDescription());
                 }
 
         }  else {
