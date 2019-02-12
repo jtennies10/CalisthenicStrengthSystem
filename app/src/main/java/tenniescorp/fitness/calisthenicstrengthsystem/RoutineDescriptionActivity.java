@@ -90,6 +90,15 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
     }
 
+    //when the activity is destroyed be sure to update the routine in the database
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CSSRoomDatabase db = CSSRoomDatabase.getDatabase(getApplicationContext());
+        db.routineDao().update(currentRoutine.getRoutineId(), currentRoutine.getRoutineName(),
+                currentRoutine.getRoutineDescription(), currentRoutine.isFavorited());
+    }
+
     /*
     Toggles the routine options represented by the floating action buttons
      */
@@ -171,7 +180,7 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
-                Routine currentRoutine = (Routine) data.getSerializableExtra("Routine");
+                currentRoutine = (Routine) data.getSerializableExtra("Routine");
 
                 routineExercises = (ArrayList) data.getSerializableExtra("Exercises");
                 //delete the current routineExercises
@@ -189,8 +198,8 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
 
                 if(requestCode == EDIT_ROUTINE_ROUTINE_DESCRIPTION_ACTIVITY_CODE) {
                     Log.d("ROUTINE", "TRUE");
-                    db.routineDao().update(currentRoutine.getRoutineId(),
-                            currentRoutine.getRoutineName(), currentRoutine.getRoutineDescription());
+                    db.routineDao().update(currentRoutine.getRoutineId(),currentRoutine.getRoutineName(),
+                            currentRoutine.getRoutineDescription(), currentRoutine.isFavorited());
 
                     //set the update routine name and description
                     TextView routineName = findViewById(R.id.routine_description_name);
