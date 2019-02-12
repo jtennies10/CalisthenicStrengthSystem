@@ -54,16 +54,16 @@ public class RoutineDescriptionActivity extends AppCompatActivity {
         //get recycler view and populate routineExercises using query to get all exercises with the correct workout_id
         recyclerView = findViewById(R.id.recyclerview);
 
-        CSSRoomDatabase db = CSSRoomDatabase.getDatabase(this);
-        routineExercises = new ArrayList<>(
-                db.routineExerciseDao().getSpecificRoutineExercises(currentRoutine.getRoutineId()));
-
         //populate the routine name and description using the Routine object passed
         //with the intent
         currentRoutine = (Routine) getIntent().getSerializableExtra("Routine");
-        Log.d("Routine name, id", currentRoutine.getRoutineName() + " " + currentRoutine.getRoutineId());
+        //Log.d("Routine name, id", currentRoutine.getRoutineName() + " " + currentRoutine.getRoutineId());
         routineName.setText(currentRoutine.getRoutineName());
         routineDescription.setText(currentRoutine.getRoutineDescription());
+
+        CSSRoomDatabase db = CSSRoomDatabase.getDatabase(this);
+        routineExercises = new ArrayList<>(
+                db.routineExerciseDao().getSpecificRoutineExercises(currentRoutine.getRoutineId()));
 
         //if the routine is favorited, set the toolbar star to be filled in
         if(currentRoutine.isFavorited()) {
