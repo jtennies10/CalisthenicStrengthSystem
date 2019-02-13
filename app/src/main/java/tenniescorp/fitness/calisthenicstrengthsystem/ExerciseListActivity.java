@@ -110,6 +110,7 @@ public class ExerciseListActivity extends AppCompatActivity {
     /*
     Manages the return of the NewExerciseActivity and inserts the exercise into the database if
     criteria is met
+
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

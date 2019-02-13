@@ -263,8 +263,8 @@ public class WeightTrackerActivity extends AppCompatActivity {
         //calculate the future weight based on the weight range and whether the user's weight is on a downtrend
         //or an uptrend, the prediction follows this trend
         int predictedWeightLbs;
-        if(minWeightLbsIndex > maxWeightLbsIndex) predictedWeightLbs = userWeights.get(userWeights.size()-1).getWeightInPounds() - (weightLbsRange/2);
-        else predictedWeightLbs = userWeights.get(userWeights.size()-1).getWeightInPounds() + (weightLbsRange/2);
+        if(minWeightLbsIndex > maxWeightLbsIndex) predictedWeightLbs = userWeights.get(userWeights.size()-1).getWeightInPounds() - (weightLbsRange/3);
+        else predictedWeightLbs = userWeights.get(userWeights.size()-1).getWeightInPounds() + (weightLbsRange/3);
 
         return new UserWeight(userId, predictedWeightLbs, predictedWeightDate);
 

@@ -130,27 +130,15 @@ public abstract class CSSRoomDatabase extends RoomDatabase {
 
 
 
-            exercise = new Exercise("Push up 6", "desc");
+            exercise = new Exercise("Chin Up", "The traditional chin up! Grab an overhanging bar or structure with your palms facing toward you " +
+                    "and pull yourself up to the bar using your back muscles. Control the movement on the way down.");
             exerciseDao.insert(exercise);
-            exercise = new Exercise("Push up 7", "Pull Up desc");
+            exercise = new Exercise("Typewriter Pull Up", "An advanced exercise. Pull yourself up to a pull up bar and then traverse to one side. After traversing one direction, traverse to the other direction." +
+                    " Then, return to the center and lower down. For increased difficulty, rotate your far hand across the bar when on each side of the traversal.");
             exerciseDao.insert(exercise);
-            exercise = new Exercise("Push Up", "Push Up decription here");
+            exercise = new Exercise("One Arm Push Up", "An advanced exercise. Perform push ups using only one arm. Focus on a tight core and spread your legs for some added balance.");
             exerciseDao.insert(exercise);
-            exercise = new Exercise("Push up 2", "desc");
-            exerciseDao.insert(exercise);
-            exercise = new Exercise("Push up 3", "desc");
-            exerciseDao.insert(exercise);
-            exercise = new Exercise("Push up 4", "desc");
-            exerciseDao.insert(exercise);
-            exercise = new Exercise("Pull Up", "Pull Up desc");
-            exerciseDao.insert(exercise);
-            exercise = new Exercise("Push up 5", "desc");
-            exerciseDao.insert(exercise);
-            exercise = new Exercise("Push up 6", "desc");
-            exerciseDao.insert(exercise);
-            exercise = new Exercise("Push up 7", "Pull Up desc");
-            exerciseDao.insert(exercise);
-            exercise = new Exercise("Squat", "squat desc");
+            exercise = new Exercise("Archer Push Up", "Get into the push up position with your hands placed out far to the sides. Lower yourself toward one hand and push back up to the start position. Repeat on the other side.");
             exerciseDao.insert(exercise);
 
 
